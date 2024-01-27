@@ -24,7 +24,7 @@ const Navbar = () => {
         ></i>
         <Link to="/" className="logo d-flex align-items-center">
           <img src={logo} alt="" className="h-[70px] w-[70px] object-cover" />
-          <span className="d-none d-lg-block">ChainXP</span>
+          <span className="d-none d-lg-block">XPGame</span>
         </Link>
       </div>
       {/* End Logo */}

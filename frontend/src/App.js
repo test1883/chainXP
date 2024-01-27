@@ -4,6 +4,7 @@ import Home from "./views/Home";
 import Navbar from "./components/Navbar/Navbar";
 import GameTab from "./components/Main/Games/GameTab/GameTab";
 import Settings from "./views/Settings";
+import Wallet from "./components/Main/wallet/Wallet"
 
 // Css files
 import "./assets/vendor/simple-datatables/style.css";
@@ -29,6 +30,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/wallet" element={<Wallet />} />
               </Routes>
             </div>
           </section>

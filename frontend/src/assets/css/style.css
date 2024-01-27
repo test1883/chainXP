@@ -1,7 +1,7 @@
 
 
 /*--------------------------------------------------------------
-# General
+# General profile
 --------------------------------------------------------------*/
 #balance {
   height: 50px;
@@ -267,11 +267,11 @@ h6 {
 
 /* Card */
 .card {
-  border: 1px solid white;
-  background-color: transparent;
-  margin-bottom: 30px;
-  border-radius: 15px 50px;
-  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+  border: 1px solid white !important;
+  background-color: transparent !important;
+  margin-bottom: 30px !important;
+  border-radius: 15px 50px !important;
+  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1) !important;
 }
 
 .card-header,

@@ -1,10 +1,11 @@
 import React from "react";
+import Sidebar from "../components/Navbar/Sidebar";
 
 const Home = () => {
   return (
     <>
       <div className="pagetitle">
-        <h1>Game</h1>
+        <h1>Games</h1>
         <nav>
           <ol className="breadcrumb">
             <li className="breadcrumb-item">
@@ -18,22 +19,25 @@ const Home = () => {
 
       <div className="col-lg-8">
         <div className="row">
-          {/* Reports */}
-          {/* <div className="col-12">
-              <div className="card">
-                <div className="card-body">
-                  <h5 className="card-title">
-                    Games <span>/Today</span>
-                  </h5>
+          {/* Games */}
+          <div className="col-12">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">
+                  Games <span>/Today</span>
+                </h5>
 
-                  <div id="reportsChart">Games list</div>
+                {/* Line Chart */}
+                <div id="reportsChart">Game Details</div>
 
-                </div>
+                {/* End Line Chart */}
               </div>
-            </div> */}
-          {/* End Reports */}
+            </div>
+          </div>
+          {/* End games */}
         </div>
       </div>
+      <Sidebar />
     </>
   );
 };

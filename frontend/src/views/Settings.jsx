@@ -26,6 +26,7 @@ function Settings() {
                     <li className="nav-item">
                       <button
                         className="nav-link"
+                        style={{color: "whitesmoke"}}
                         data-toggle="tab"
                         data-target="#profile-edit"
                       >
@@ -36,6 +37,7 @@ function Settings() {
                     <li className="nav-item">
                       <button
                         className="nav-link"
+                        style={{color: "whitesmoke"}}
                         data-toggle="tab"
                         data-target="#profile-settings"
                       >
