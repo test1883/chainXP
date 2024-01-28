@@ -24,7 +24,7 @@ const Navbar = () => {
         ></i>
         <Link to="/" className="logo d-flex align-items-center">
           <img src={logo} alt="" className="h-[70px] w-[70px] object-cover" />
-          <span className="d-none d-lg-block">XPGame</span>
+          <span className="d-none d-lg-block">ChainXP</span>
         </Link>
       </div>
       {/* End Logo */}
@@ -60,11 +60,9 @@ const Navbar = () => {
             </>
           ) : (
             <li className="nav-item pe-3">
-              <a href="/logout">
-                <button type="button" className="btn btn-warning">
-                  Connect Wallet
-                </button>
-              </a>
+              <button type="button" className="btn btn-warning">
+                Connect Wallet
+              </button>
             </li>
           )}
         </ul>

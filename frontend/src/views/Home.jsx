@@ -1,42 +1,69 @@
 import React from "react";
 import Sidebar from "../components/Navbar/Sidebar";
+import GameInfo from "../components/Main/GameInfo/Quest/GameInfo";
+import Quest from "../components/Main/GameInfo/Quest/Quest";
+import logo from "../assets/address.jpg";
 
 const Home = () => {
   return (
     <>
-      <div className="pagetitle">
-        <h1>Games</h1>
-        <nav>
-          <ol className="breadcrumb">
-            <li className="breadcrumb-item">
-              <a href="index.html">Home</a>
-            </li>
-            <li className="breadcrumb-item active">Games</li>
-          </ol>
-        </nav>
-      </div>
-      {/* End Page Title */}
-
       <div className="col-lg-8">
         <div className="row">
           {/* Games */}
           <div className="col-12">
-            <div className="card">
+            <div className="">
               <div className="card-body">
                 <h5 className="card-title">
-                  Games <span>/Today</span>
+                  Games <span>/Details</span>
                 </h5>
-
-                {/* Line Chart */}
-                <div id="reportsChart">Game Details</div>
-
-                {/* End Line Chart */}
+                <div className="card info-card revenue-card">
+                  <div className="card-body">
+                    <div className="d-flex align-items-center">
+                      <div className="">
+                        <img
+                          src={logo}
+                          style={{
+                            height: "100%",
+                            width: "100px",
+                            borderRadius: "10px",
+                          }}
+                          alt=""
+                        />
+                      </div>
+                      <div className="ps-3">
+                        <h6 style={{ color: "gold" }}>
+                          The Gamifield quests onboard
+                        </h6>
+                        <h5 className="c" style={{ color: "whitesmoke" }}>
+                          <b> Quest Title: </b>Gema current level quest
+                        </h5>
+                        <h5 className="c" style={{ color: "whitesmoke" }}>
+                          <b> Current Level: </b> 3
+                        </h5>
+                        <h5 className="c" style={{ color: "whitesmoke" }}>
+                          <b> Duration: </b> <span style={{color: "gray"}}>00 : 00 : 00</span>
+                        </h5>
+                        <div className="text-center">
+                          <a href="/">
+                            <button type="button" className="btn btn-warning">
+                              Enter
+                            </button>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <GameInfo />
+                </div>
               </div>
             </div>
           </div>
+          <Quest />
+
           {/* End games */}
         </div>
       </div>
+
       <Sidebar />
     </>
   );
