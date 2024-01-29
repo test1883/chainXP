@@ -1,10 +1,10 @@
-import React, { useEffect, useState, FC } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./views/Home";
 import Navbar from "./components/Navbar/Navbar";
 import GameTab from "./components/Main/Games/GameTab/GameTab";
 import Settings from "./views/Settings";
-import Viewall from "./views/Viewall";
+import Quests from "./views/Quests";
 
 // Css files
 import "./assets/vendor/simple-datatables/style.css";
@@ -30,7 +30,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/settings" element={<Settings />} />
-                <Route path="/viewall" element={<Viewall />} />
+                <Route path="/quests" element={<Quests />} />
               </Routes>
             </div>
           </section>

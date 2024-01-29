@@ -13,7 +13,7 @@ const cardData = [
   { name: "nacy colenhf", reward: "40", level: "6", id: 9 },
 ];
 
-const Viewall = () => {
+const Quests = () => {
   return (
     <>
       <div className="col-lg-12">
@@ -73,4 +73,4 @@ const Viewall = () => {
   );
 };
 
-export default Viewall;
+export default Quests;

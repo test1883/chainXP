@@ -82,7 +82,7 @@ const Sidebar = () => {
             ))}
           </div>
           <div className="text-center">
-            <a href="/viewall">
+            <a href="/quests">
               <button id="followbtn">View All</button>
             </a>
           </div>
