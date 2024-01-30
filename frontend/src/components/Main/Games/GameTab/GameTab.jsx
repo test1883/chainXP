@@ -44,7 +44,7 @@ const GameTab = () => {
         <li className="nav-heading">Game</li>
         {gameData.map((game) => (
           <li key={game.id} className="nav-item">
-            <Link className="nav-link gap-1 collapsed" to="/">
+            <Link className="nav-link gap-1 collapsed" to="/games">
               <img
                 src={logo}
                 alt=""

@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import GameTab from "./components/Main/Games/GameTab/GameTab";
 import Settings from "./views/Settings";
 import Quests from "./views/Quests";
+import Games from "./components/Main/Games/Games";
 
 // Css files
 import "./assets/vendor/simple-datatables/style.css";
@@ -29,6 +30,7 @@ const App = () => {
             <div className="row">
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/games" element={<Games />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/quests" element={<Quests />} />
               </Routes>

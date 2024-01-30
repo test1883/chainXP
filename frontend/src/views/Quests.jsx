@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import useimage from "../assets/address.jpg";
+import Modal from "../components/Main/Games/Modal";
 
 const cardData = [
   { name: "sone tvdx sfgff", reward: "10", level: "1", id: 1 },
@@ -14,6 +15,20 @@ const cardData = [
 ];
 
 const Quests = () => {
+  const [isGamemodalOpen, setIsGamemodalOpen] = useState(false);
+
+  const handleGamemodalClick = () => {
+    setIsGamemodalOpen(true);
+  };
+
+  const handleCloseGamemodal = () => {
+    setIsGamemodalOpen(false);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // claim
+    handleCloseGamemodal();
+  };
   return (
     <>
       <div className="col-lg-12">
@@ -57,7 +72,9 @@ const Quests = () => {
                           >
                             {card.reward} xp
                           </span>
-                          <button id="followbtn">Enter</button>
+                          <button onClick={handleGamemodalClick} id="followbtn">
+                            Enter
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -69,6 +86,12 @@ const Quests = () => {
           {/* End games */}
         </div>
       </div>
+      <>
+        {/* Render the Gamemodal if isGamemodalOpen is true */}
+        {isGamemodalOpen && (
+          <Modal onClose={handleCloseGamemodal} onSubmit={handleSubmit} />
+        )}
+      </>
     </>
   );
 };
