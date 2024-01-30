@@ -28,9 +28,6 @@ const Games = () => {
           <div className="col-12">
             <div className="">
               <div className="card-body">
-                <h5 className="card-title">
-                  Games <span>/Details</span>
-                </h5>
                 <div className="card info-card revenue-card">
                   <div className="card-body">
                     <div className="d-flex align-items-center">
@@ -50,23 +47,21 @@ const Games = () => {
                           The Gamifield quests onboard
                         </h6>
                         <h5 className="c" style={{ color: "whitesmoke" }}>
-                          <b> Quest Title: </b>Gema current level quest
+                          <b> Game Title: </b>Gema current level quest
                         </h5>
-                        <h5 className="c" style={{ color: "whitesmoke" }}>
-                          <b> Current Level: </b> 3
-                        </h5>
-                        <h5 className="c" style={{ color: "whitesmoke" }}>
-                          <b> Duration: </b>{" "}
-                          <span style={{ color: "gray" }}>00 : 00 : 00</span>
-                        </h5>
-                        <div className="text-center">
-                          <button
-                            type="button"
-                            onClick={handleGamemodalClick}
-                            className="btn btn-warning"
-                          >
-                            Enter
-                          </button>
+                        <div className="d-flex justify-content-between align-items-center">
+                            <h5 className="c" style={{ color: "whitesmoke" }}>
+                            <b> Current Level: </b> 3
+                            </h5>
+                            <div className="text-center">
+                            <button
+                                type="button"
+                                onClick={handleGamemodalClick}
+                                className="btn btn-warning"
+                            >
+                                Know More
+                            </button>
+                            </div>
                         </div>
                       </div>
                     </div>

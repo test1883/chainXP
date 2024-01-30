@@ -86,24 +86,26 @@ const Sidebar = () => {
                       Level {card.level}
                     </span>
                   </p>
-                  <span
-                    style={{
-                      color: "gold",
-                      fontFamily: "fantasy",
-                      fontSize: "medium",
-                    }}
-                  >
-                    {card.reward} xp
-                  </span>
-                  <button onClick={handleGamemodalClick} id="followbtn">
-                    Enter
-                  </button>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <span
+                      style={{
+                        color: "gold",
+                        fontFamily: "fantasy",
+                        fontSize: "medium",
+                      }}
+                    >
+                      {card.reward} xp
+                    </span>
+                    <button onClick={handleGamemodalClick} className="btn btn-warning followbtn">
+                      Enter
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
             <div className="text-center">
               <Link to="/quests">
-                <button id="followbtn">View All</button>
+                <button className="btn btn-warning followbtn">View All</button>
               </Link>
             </div>
             {/* End sidebar recent posts */}

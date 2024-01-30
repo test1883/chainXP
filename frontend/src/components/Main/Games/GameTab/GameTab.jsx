@@ -16,10 +16,8 @@ const GameTab = () => {
     <aside id="sidebar" className={`sidebar ${"ml-[300px]"}`}>
       <ul className="sidebar-nav" id="sidebar-nav">
         <div className="search-bar">
-          <form
-            className="search-form d-flex align-items-center"
-            method="POST"
-            action="#"
+          <div
+            className="search-form d-flex align-items-center justify-content-between"
           >
             <input
               style={{ padding: "10px", borderRadius: "20px" }}
@@ -30,16 +28,17 @@ const GameTab = () => {
             />
             <button
               style={{
-                background: "yellow",
-                padding: "10px",
+                width: "40px",
+                height: "40px",
                 borderRadius: "50%",
               }}
               type="submit"
               title="Search"
+              className="btn btn-warning"
             >
               <i className="bi bi-search"></i>
             </button>
-          </form>
+            </div>
         </div>
         <li className="nav-heading">Game</li>
         {gameData.map((game) => (

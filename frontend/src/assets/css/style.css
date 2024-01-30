@@ -42,16 +42,14 @@ table.custom-table th {
 }
 
 #followbtn {
-  background-color: gold;
   color: black;
   border-radius: 10px;
-  padding: 7px;
+  padding: 7px 10px;
   margin-left: 15px;
-
+  transition: all 0.1s ease-in-out;
 }
 #followbtn:hover {
-  color: white;
-  background-color: #2c384e;
+  transform: scale(1.1);
 }
 #posttesat {
   width: 300px;
@@ -76,6 +74,14 @@ a {
 a:hover {
   color: rgb(224, 201, 71);
   text-decoration: none;
+}
+
+input {
+  border: none;
+}
+
+button {
+  border: none;
 }
 
 h1,

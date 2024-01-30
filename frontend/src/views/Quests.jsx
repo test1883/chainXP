@@ -72,7 +72,7 @@ const Quests = () => {
                           >
                             {card.reward} xp
                           </span>
-                          <button onClick={handleGamemodalClick} id="followbtn">
+                          <button onClick={handleGamemodalClick} className="btn btn-warning followbtn">
                             Enter
                           </button>
                         </div>

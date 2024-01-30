@@ -15,7 +15,7 @@ const GameInfo = () => {
           <div className="col-xxl-6 col-md-6">
             <div className="card info-card revenue-card">
               <div className="card-body">
-                <h5 className="card-title">Level Reward</h5>
+                <h5 className="card-title">Quest Bonus</h5>
 
                 <div className="d-flex align-items-center">
                   <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
