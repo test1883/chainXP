@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import logo from "../../../assets/address.jpg";
 
 const Modal = ({ onClose, onSubmit }) => {
+  const [field1, setField1] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Close the modal
@@ -57,6 +59,19 @@ const Modal = ({ onClose, onSubmit }) => {
                 silysgulidg ldisglyid gls iuyg lausy afsfuak stf sftf
               </span>
             </p>
+          </div>
+          <div className="form-group">
+            <label className="css-1owdu0o">
+              <div className="css-zkfaav" style={{color: "gold"}}>Enter Wallet Adress</div>
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              placeholder="oxwjk....evkvbh"
+              value={field1}
+              onChange={(e) => setField1(e.target.value)}
+              required
+            />
           </div>
 
           <br />

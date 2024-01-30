@@ -1,22 +1,12 @@
 import React from "react";
 import profile from "../assets/address.jpg";
+import AddQuestForm from "../components/AddQuestForm/AddQuestForm";
+import Gamelist from "../components/AddQuestForm/Gamelist";
 
 function Settings() {
   return (
     <>
       <div className="col-lg-12">
-        <div className="pagetitle">
-          <h1>Settings</h1>
-          <nav>
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <a href="/">Home</a>
-              </li>
-              <li className="breadcrumb-item active">Settings</li>
-            </ol>
-          </nav>
-        </div>
-
         <section className="section profile">
           <div className="row">
             <div className="col-xl-12">
@@ -26,7 +16,10 @@ function Settings() {
                     <li className="nav-item">
                       <button
                         className="nav-link"
-                        style={{color: "whitesmoke"}}
+                        style={{
+                          color: "whitesmoke",
+                          background: "transparent",
+                        }}
                         data-toggle="tab"
                         data-target="#profile-edit"
                       >
@@ -37,7 +30,38 @@ function Settings() {
                     <li className="nav-item">
                       <button
                         className="nav-link"
-                        style={{color: "whitesmoke"}}
+                        style={{
+                          color: "whitesmoke",
+                          background: "transparent",
+                        }}
+                        data-toggle="tab"
+                        data-target="#game-settings"
+                      >
+                        Games
+                      </button>
+                    </li>
+
+                    <li className="nav-item">
+                      <button
+                        className="nav-link"
+                        style={{
+                          color: "whitesmoke",
+                          background: "transparent",
+                        }}
+                        data-toggle="tab"
+                        data-target="#game-list"
+                      >
+                        Games List
+                      </button>
+                    </li>
+
+                    <li className="nav-item">
+                      <button
+                        className="nav-link"
+                        style={{
+                          color: "whitesmoke",
+                          background: "transparent",
+                        }}
                         data-toggle="tab"
                         data-target="#profile-settings"
                       >
@@ -119,7 +143,6 @@ function Settings() {
                             </textarea>
                           </div>
                         </div>
-
 
                         <div className="row mb-3">
                           <label
@@ -271,6 +294,14 @@ function Settings() {
                           </button>
                         </div>
                       </form>
+                    </div>
+
+                    <div className="tab-pane fade pt-3" id="game-settings">
+                      <AddQuestForm />
+                    </div>
+
+                    <div className="tab-pane fade pt-3" id="game-list">
+                      <Gamelist />
                     </div>
 
                     <div className="tab-pane fade pt-3" id="profile-settings">
