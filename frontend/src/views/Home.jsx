@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Navbar/Sidebar";
 import GameInfo from "../components/Main/GameInfo/Quest/GameInfo";
 import Quest from "../components/Main/GameInfo/Quest/Quest";
 import logo from "../assets/address.jpg";
+import Modal from "../components/Main/Games/Modal";
 
 const Home = () => {
+  const [isGamemodalOpen, setIsGamemodalOpen] = useState(false);
+
+  const handleGamemodalClick = () => {
+    setIsGamemodalOpen(true);
+  };
+
+  const handleCloseGamemodal = () => {
+    setIsGamemodalOpen(false);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // claim
+    handleCloseGamemodal();
+  };
   return (
     <>
       <div className="col-lg-8">
@@ -41,14 +56,17 @@ const Home = () => {
                           <b> Current Level: </b> 3
                         </h5>
                         <h5 className="c" style={{ color: "whitesmoke" }}>
-                          <b> Duration: </b> <span style={{color: "gray"}}>00 : 00 : 00</span>
+                          <b> Duration: </b>{" "}
+                          <span style={{ color: "gray" }}>00 : 00 : 00</span>
                         </h5>
                         <div className="text-center">
-                          <a href="/">
-                            <button type="button" className="btn btn-warning">
-                              Enter
-                            </button>
-                          </a>
+                          <button
+                            type="button"
+                            onClick={handleGamemodalClick}
+                            className="btn btn-warning"
+                          >
+                            Enter
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -65,6 +83,10 @@ const Home = () => {
       </div>
 
       <Sidebar />
+      {/* Render the Gamemodal if isGamemodalOpen is true */}
+      {isGamemodalOpen && (
+        <Modal onClose={handleCloseGamemodal} onSubmit={handleSubmit} />
+      )}
     </>
   );
 };

@@ -51,7 +51,7 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="nav-item pe-3">
-                <a href="/logout">
+                <a href="/">
                   <button type="button" className="btn btn-danger">
                     Disconnect
                   </button>
