@@ -17,28 +17,37 @@ import "./assets/vendor/bootstrap-icons/bootstrap-icons.css";
 import "./assets/vendor/bootstrap/css/bootstrap.min.css";
 import "./assets/css/style.css";
 
-// importing web3 instance
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { WagmiProvider } from 'wagmi'
+import { config } from './config/config.js'
+
+const queryClient = new QueryClient()
 
 const App = () => {
   return (
-    <div className="">
-      <Router>
-        <Navbar />
-        <GameTab />
-        <main id="main" className="main">
-          <section className="section dashboard">
-            <div className="row">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/games" element={<Games />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/quests" element={<Quests />} />
-              </Routes>
-            </div>
-          </section>
-        </main>
-      </Router>
-    </div>
+    
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <div className="">
+          <Router>
+            <Navbar />
+            <GameTab />
+            <main id="main" className="main">
+              <section className="section dashboard">
+                <div className="row">
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/games" element={<Games />} />
+                    <Route path="/settings" element={<Settings />} />
+                    <Route path="/quests" element={<Quests />} />
+                  </Routes>
+                </div>
+              </section>
+            </main>
+          </Router>
+        </div>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 };
 

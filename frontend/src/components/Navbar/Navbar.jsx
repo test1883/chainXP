@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/address.jpg";
+import { Connector, useAccount, useConnect, useDisconnect } from 'wagmi'
 
 // import logo from "../assets/img/logo.png";
 
 const Navbar = () => {
-  const WalletConnected = true;
-  //   const truncatedAddress = isWalletConnected
-  //     ? `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`
-  //     : "";
+  const { connectors, connect } = useConnect()
+  const { disconnect } = useDisconnect()
+  const { address, isConnected } = useAccount()
 
   return (
     <header
@@ -38,7 +38,7 @@ const Navbar = () => {
             </Link>
           </li>
 
-          {!WalletConnected ? (
+          {isConnected ? (
             <>
               <li className="nav-item pe-3">
                 <Link
@@ -47,21 +47,19 @@ const Navbar = () => {
                   data-bs-toggle="dropdown"
                 >
                   <img src={logo} alt="Profile" className="rounded-circle" />
-                  <span className="d-none d-md-block ps-2">oxwk...wdj</span>
+                  <span className="d-none d-md-block ps-2">{address.slice(0, 6)}...{address.slice(-4)}</span>
                 </Link>
               </li>
               <li className="nav-item pe-3">
-                <a href="/">
-                  <button type="button" className="btn btn-danger">
-                    Disconnect
-                  </button>
-                </a>
+                <button type="button" className="btn btn-danger" onClick={() => {disconnect()}}>
+                  Disconnect
+                </button>
               </li>
             </>
           ) : (
             <li className="nav-item pe-3">
-              <button type="button" className="btn btn-warning">
-                Connect Wallet
+              <button type="button" className="btn btn-warning" onClick={() => connect({ connector: connectors[0] })}>
+                Connect Wallet {address}
               </button>
             </li>
           )}
