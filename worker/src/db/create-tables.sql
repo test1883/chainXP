@@ -28,5 +28,6 @@ CREATE TABLE IF NOT EXISTS QUESTS {
 	quest_id INT NOT NULL,
 	title TEXT NOT NULL,
 	description TEXT NOT NULL,
+	n_tries INT NOT NULL
 	PRIMARY KEY(game_id, quest_id)
 }

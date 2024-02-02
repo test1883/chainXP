@@ -22,6 +22,7 @@ export function parseQuestFromDb(
       description: quest.description,
       game_id: quest.gameId,
       quest_id: quest.questId,
+      n_tries: quest.nTries
     }
   }
 }
@@ -43,6 +44,7 @@ export function stringifyQuestForDb(
       description: quest.description,
       gameId: quest.game_id,
       questId: quest.quest_id,
+      nTries: quest.n_tries
     }
   }
 }

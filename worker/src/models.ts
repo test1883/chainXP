@@ -40,6 +40,7 @@ export const ZodQuest = z.object({
 	quest_id: z.number(),
 	title: z.string(),
 	description: z.string(),
+  n_tries: z.number()
 })
 
 export const ZodQuestWithSignature = ZodQuest.extend({
@@ -82,4 +83,5 @@ export interface QuestInKysely {
 	questId: number,
 	title: string,
 	description: string, 
+  nTries: number
 }
