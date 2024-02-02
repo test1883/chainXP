@@ -198,12 +198,12 @@ contract ChainXP {
         return false;
     }
 
-    function createProfile(string memory profile, string memory name, string memory bio, string memory country, string[] memory socials, string[] memory links) external view {
+    function createProfile(string memory profile, string memory name, string memory bio, string memory country) external view {
         require(!contains(users, msg.sender), "User already exists");
         revert OffchainLookup(
             address(this),
             urls,
-            abi.encodeWithSelector(Gateway.createProfile.selector, users.length, profile, msg.sender, name, bio, country, socials, links),   
+            abi.encodeWithSelector(Gateway.createProfile.selector, users.length, profile, msg.sender, name, bio, country),   
             ChainXP.createProfileWithSignature.selector,
             abi.encode(msg.sender, users.length)
         );

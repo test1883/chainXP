@@ -225,16 +225,6 @@
               "internalType": "string",
               "name": "country",
               "type": "string"
-            },
-            {
-              "internalType": "string[]",
-              "name": "socials",
-              "type": "string[]"
-            },
-            {
-              "internalType": "string[]",
-              "name": "links",
-              "type": "string[]"
             }
           ],
           "name": "createProfile",
@@ -406,5 +396,5 @@
           "stateMutability": "nonpayable",
           "type": "function"
         }
-      ]
+    ]
 }
