@@ -1,11 +1,11 @@
-name = "ens-gateway"
+name = "chain-xp-worker"
 main = "src/index.ts"
 compatibility_date = "2023-03-15"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "offchaindemo"
-database_id = "6b30bc65-edda-4e25-bb5a-8681b0419031"
+database_name = "ChainXP"
+database_id = "5c6ab908-fe1f-4521-889a-8a4b9ca2a34a"
 
 # The necessary secrets are:
 # - PRIVATE_KEY
