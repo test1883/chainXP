@@ -2,6 +2,44 @@ import { ethers } from 'ethers'
 
 import durin_call from './CCIPRead'
 
+export const uploadToIPFS = async (file) => {
+    const form = new formData();
+    form.append('file', file);
+
+    // let res = await fetch(IPFS_URL, form, {
+    //     headers: form.getHeaders(),
+    //     auth: {
+    //         username: 'Your Project Id',
+    //         password: 'Your Project Server Key',
+    //     },
+    // });
+}
+
+export const getProfile = async (address) => {
+    const profile = await fetch("hh" + address)
+    return profile
+}
+
+export const playerLevel = async (ChainXP_abi, gameId) => {
+    const contract = new ethers.Contract("0xb1Bce02506dA4010a77E788C21655A5B36AE8A41", ChainXP_abi, signer)
+    const level = await contract.playerLevel(gameId)
+    return level
+}
+
+export const gameQuests = async (ChainXP_abi, gameId) => {
+    const quests = await fetch("h" + gameId)
+    const contract = new ethers.Contract("0xb1Bce02506dA4010a77E788C21655A5B36AE8A41", ChainXP_abi, signer)
+    const questDetails = await contract.gameQuests(gameId)
+    return {quests, questDetails}
+}
+
+export const ongoingQuests =async (ChainXP_abi, address) => {
+    const quests = await fetch("h" + address)
+    const contract = new ethers.Contract("0xb1Bce02506dA4010a77E788C21655A5B36AE8A41", ChainXP_abi, signer)
+    const questDetails = await contract.ongoingQuests()
+    return {quests, questDetails}
+}
+
 export const getXPBalance = async (XPToken_abi, signer) => {
     const contract = new ethers.Contract("0xb1Bce02506dA4010a77E788C21655A5B36AE8A41", XPToken_abi, signer)
     const balance = await contract.getBalance()

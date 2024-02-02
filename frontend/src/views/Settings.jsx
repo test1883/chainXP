@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import profile from "../assets/address.jpg";
 import AddQuestForm from "../components/AddQuestForm/AddQuestForm";
 import Gamelist from "../components/AddQuestForm/Gamelist";
+import { useEthersSigner } from "../utils/ethers";
 
 function Settings() {
+  const signer = useEthersSigner()
+  useEffect(() => {
+    if (!signer) alert("no")
+    else console.log(signer)
+  }, [signer])
   return (
     <>
       <div className="col-lg-12">
@@ -121,11 +127,6 @@ function Settings() {
                               id="about"
                               style={{ height: "100px" }}
                             >
-                              Sunt est soluta temporibus accusantium neque nam
-                              maiores cumque temporibus. Tempora libero non est
-                              unde veniam est qui dolor. Ut sunt iure rerum quae
-                              quisquam autem eveniet perspiciatis odit. Fuga
-                              sequi sed ea saepe at unde.
                             </textarea>
                           </div>
                         </div>
@@ -143,79 +144,6 @@ function Settings() {
                               type="text"
                               className="form-control"
                               id="Country"
-                              value="USA"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="row mb-3">
-                          <label
-                            for="Twitter"
-                            className="col-md-4 col-lg-3 col-form-label"
-                          >
-                            Twitter Profile
-                          </label>
-                          <div className="col-md-8 col-lg-9">
-                            <input
-                              name="twitter"
-                              type="text"
-                              className="form-control"
-                              id="Twitter"
-                              value="https://twitter.com/#"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="row mb-3">
-                          <label
-                            for="Facebook"
-                            className="col-md-4 col-lg-3 col-form-label"
-                          >
-                            Facebook Profile
-                          </label>
-                          <div className="col-md-8 col-lg-9">
-                            <input
-                              name="facebook"
-                              type="text"
-                              className="form-control"
-                              id="Facebook"
-                              value="https://facebook.com/#"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="row mb-3">
-                          <label
-                            for="Instagram"
-                            className="col-md-4 col-lg-3 col-form-label"
-                          >
-                            Instagram Profile
-                          </label>
-                          <div className="col-md-8 col-lg-9">
-                            <input
-                              name="instagram"
-                              type="text"
-                              className="form-control"
-                              id="Instagram"
-                              value="https://instagram.com/#"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="row mb-3">
-                          <label
-                            for="Linkedin"
-                            className="col-md-4 col-lg-3 col-form-label"
-                          >
-                            Linkedin Profile
-                          </label>
-                          <div className="col-md-8 col-lg-9">
-                            <input
-                              name="linkedin"
-                              type="text"
-                              className="form-control"
-                              id="Linkedin"
-                              value="https://linkedin.com/#"
                             />
                           </div>
                         </div>

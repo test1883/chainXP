@@ -254,6 +254,62 @@
           "inputs": [
             {
               "internalType": "uint256",
+              "name": "gameId",
+              "type": "uint256"
+            }
+          ],
+          "name": "gameQuests",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "questId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "gameId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "endTime",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "requiredLevel",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "enterFees",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "rewards",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "nTries",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct Quest[]",
+              "name": "",
+              "type": "tuple[]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
               "name": "userId",
               "type": "uint256"
             },
@@ -271,6 +327,107 @@
           "name": "joinQuest",
           "outputs": [],
           "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "ongoingQuests",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "userId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "questId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "gameId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "triesTaken",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "enum Status",
+                  "name": "status",
+                  "type": "uint8"
+                }
+              ],
+              "internalType": "struct UserQuest[]",
+              "name": "",
+              "type": "tuple[]"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "questId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "gameId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "endTime",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "requiredLevel",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "enterFees",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "rewards",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "nTries",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct Quest[]",
+              "name": "",
+              "type": "tuple[]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "gameId",
+              "type": "uint256"
+            }
+          ],
+          "name": "playerLevel",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
           "type": "function"
         },
         {

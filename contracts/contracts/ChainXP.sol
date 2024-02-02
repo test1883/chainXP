@@ -253,4 +253,21 @@ contract ChainXP {
         XP = xp;
     }
 
+    function playerLevel(uint256 gameId) external view returns(uint256) {
+        return userEarnings[userAddressToId[msg.sender]][gameId]/100;
+    }
+
+    function gameQuests(uint256 gameId) external view returns(Quest[] memory) {
+        return quests[gameId];
+    }
+
+    function ongoingQuests() external view returns(UserQuest[] memory, Quest[] memory) {
+        UserQuest[] memory uQuests = userQuests[msg.sender];
+        Quest[] memory qDetails = new Quest[](uQuests.length);
+        for (uint256 i = 0; i < uQuests.length; i++) {
+            qDetails[i] = quests[uQuests[i].gameId][uQuests[i].questId];
+        }
+        return (uQuests, qDetails);
+    }
+
 }
