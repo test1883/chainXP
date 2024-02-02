@@ -6,9 +6,7 @@ export const ZodProfile = z.object({
 	owner: z.string(),
 	name: z.string(),
 	bio: z.string(),
-	country: z.string(),
-	socials: z.record(z.string()).optional(),
-	links: z.record(z.string()).optional()
+	country: z.string()
 })
 
 export const ZodProfileWithSignature = ZodProfile.extend({
@@ -63,9 +61,7 @@ export interface ProfileInKysely {
 	owner: string,
 	name: string,
 	bio: string,
-	country: string,
-	socials: string | null,
-	links: string | null
+	country: string
 }
 
 export interface GameInKysely {

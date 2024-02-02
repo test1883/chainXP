@@ -20,9 +20,7 @@ export function makeServer(privateKey: string, env: Env) {
           owner: args.owner,
           name: args.name,
           bio: args.bio,
-          country: args.country,
-          socials: JSON.parse(args.socials),
-          links: JSON.parse(args.links),
+          country: args.country
         }, env)
         // Hash and sign the response
         let messageHash = ethers.utils.solidityKeccak256(

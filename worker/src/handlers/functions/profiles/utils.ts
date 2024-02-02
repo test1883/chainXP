@@ -24,8 +24,6 @@ export function parseProfileFromDb(
       country: profile.country,
       user_id: profile.userId,
       profile: profile.profile,
-      socials: profile.socials ? JSON.parse(profile.socials) : null,
-      links: profile.links ? JSON.parse(profile.links) : null,
     }
   }
 }
@@ -48,9 +46,7 @@ export function stringifyProfileForDb(
       bio: profile.bio,
       country: profile.country,
       userId: profile.user_id,
-      profile: profile.profile,
-      socials: profile.socials ? JSON.stringify(profile.socials) : null,
-      links: profile.links ? JSON.stringify(profile.links) : null,
+      profile: profile.profile
       }
   }
 }
