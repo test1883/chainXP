@@ -3,20 +3,24 @@ import { ethers } from 'ethers'
 import durin_call from './CCIPRead'
 
 export const uploadToIPFS = async (file) => {
-    const form = new formData();
+    const form = new FormData();
     form.append('file', file);
 
-    // let res = await fetch(IPFS_URL, form, {
-    //     headers: form.getHeaders(),
-    //     auth: {
-    //         username: 'Your Project Id',
-    //         password: 'Your Project Server Key',
-    //     },
-    // });
+    let res = await fetch(IPFS_URL, {
+        method: "POST",
+        body: form,
+        auth: {
+            username: process.env.REACT_APP_USERNAME,
+            password: process.env.REACT_APP_PASSWORD,
+        },
+    });
+    const { cid } = await res.json()
+    return cid
 }
 
 export const getProfile = async (address) => {
-    const profile = await fetch("hh" + address)
+    const response = await fetch("hh" + address)
+    const profile = await response.json()
     return profile
 }
 
@@ -27,14 +31,16 @@ export const playerLevel = async (ChainXP_abi, gameId) => {
 }
 
 export const gameQuests = async (ChainXP_abi, gameId) => {
-    const quests = await fetch("h" + gameId)
+    const response = await fetch("h" + gameId)
+    const quests = await response.json()
     const contract = new ethers.Contract("0xb1Bce02506dA4010a77E788C21655A5B36AE8A41", ChainXP_abi, signer)
     const questDetails = await contract.gameQuests(gameId)
     return {quests, questDetails}
 }
 
 export const ongoingQuests =async (ChainXP_abi, address) => {
-    const quests = await fetch("h" + address)
+    const response = await fetch("h" + address)
+    const quests = await response.json()
     const contract = new ethers.Contract("0xb1Bce02506dA4010a77E788C21655A5B36AE8A41", ChainXP_abi, signer)
     const questDetails = await contract.ongoingQuests()
     return {quests, questDetails}
