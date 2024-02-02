@@ -1,7 +1,7 @@
 import { Router, createCors } from 'itty-router'
 
 import { Env } from './env'
-import { getCcipRead, getProfile, getGames, getQuests } from './handlers'
+import { getCcipRead, getProfile, getGames, getQuests, getGame } from './handlers'
 
 const { preflight, corsify } = createCors()
 const router = Router()
@@ -11,6 +11,7 @@ router
   .get('/lookup/*', (request, env) => getCcipRead(request, env))
   .get('/get/:owner', (request, env) => getProfile(request, env))
   .get('/games', (request, env) => getGames(env))
+  .get('/game/:owner', (request, env) => getGame(request, env))
   .get('/quests/:gameId', (request, env) => getQuests(request, env))
   .all('*', () => new Response('Not found', { status: 404 }))
 
