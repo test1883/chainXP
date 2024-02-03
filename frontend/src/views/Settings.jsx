@@ -3,6 +3,8 @@ import profile from "../assets/address.jpg";
 import AddQuestForm from "../components/AddQuestForm/AddQuestForm";
 import Gamelist from "../components/AddQuestForm/Gamelist";
 import { useEthersSigner } from "../utils/ethers";
+import { createProfile } from "../utils/functions";
+import ChainXP from "../abi/ChainXP.json"
 
 function Settings() {
   const signer = useEthersSigner()
@@ -149,7 +151,10 @@ function Settings() {
                         </div>
 
                         <div className="text-center">
-                          <button type="submit" className="btn btn-primary">
+                          <button type="submit" className="btn btn-primary" onClick={(e) => {
+                            e.preventDefault()
+                            createProfile(ChainXP.abi, "h", "h", "h", "h", signer)}
+                          }>
                             Save Changes
                           </button>
                         </div>

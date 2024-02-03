@@ -6,7 +6,7 @@ export const uploadToIPFS = async (file) => {
     const form = new FormData();
     form.append('file', file);
 
-    let res = await fetch(IPFS_URL, {
+    let res = await fetch("https://rpc.particle.network/ipfs/upload", {
         method: "POST",
         body: form,
         auth: {
@@ -19,60 +19,67 @@ export const uploadToIPFS = async (file) => {
 }
 
 export const getProfile = async (address) => {
-    const response = await fetch("hh" + address)
+    const response = await fetch(process.env.REACT_APP_GATEWAY + "/get/" + address)
     const profile = await response.json()
     return profile
 }
 
-export const playerLevel = async (ChainXP_abi, gameId) => {
-    const contract = new ethers.Contract("0xb1Bce02506dA4010a77E788C21655A5B36AE8A41", ChainXP_abi, signer)
+export const playerLevel = async (ChainXP_abi, gameId, signer) => {
+    const contract = new ethers.Contract("0x610C63e6d6f7bEd8589fe06De840Db46d347A999", ChainXP_abi, signer)
     const level = await contract.playerLevel(gameId)
     return level
 }
 
-export const gameQuests = async (ChainXP_abi, gameId) => {
-    const response = await fetch("h" + gameId)
+export const gameQuests = async (ChainXP_abi, gameId, signer) => {
+    const response = await fetch(process.env.REACT_APP_GATEWAY + "/quests/" + gameId)
     const quests = await response.json()
-    const contract = new ethers.Contract("0xb1Bce02506dA4010a77E788C21655A5B36AE8A41", ChainXP_abi, signer)
+    const contract = new ethers.Contract("0x610C63e6d6f7bEd8589fe06De840Db46d347A999", ChainXP_abi, signer)
     const questDetails = await contract.gameQuests(gameId)
     return {quests, questDetails}
 }
 
-export const ongoingQuests =async (ChainXP_abi, address) => {
-    const response = await fetch("h" + address)
-    const quests = await response.json()
-    const contract = new ethers.Contract("0xb1Bce02506dA4010a77E788C21655A5B36AE8A41", ChainXP_abi, signer)
+export const ongoingQuests =async (ChainXP_abi, address, signer) => {
+    const contract = new ethers.Contract("0x610C63e6d6f7bEd8589fe06De840Db46d347A999", ChainXP_abi, signer)
     const questDetails = await contract.ongoingQuests()
+    const ongoing = await questDetails[0].map(quest => {
+        return {
+            gameId: quest[1],
+            questId: quest[2]
+        }
+    })
+    const response = await fetch(process.env.REACT_APP_GATEWAY + "/ongoing", {
+        method: "POST",
+        body: JSON.stringify(ongoing)
+    })
+    const quests = await response.json()
     return {quests, questDetails}
 }
 
 export const getXPBalance = async (XPToken_abi, signer) => {
-    const contract = new ethers.Contract("0xb1Bce02506dA4010a77E788C21655A5B36AE8A41", XPToken_abi, signer)
+    const contract = new ethers.Contract("0x6494f34662C3c2AaFeE6021B407DF3F4d69e5545", XPToken_abi, signer)
     const balance = await contract.getBalance()
     return balance
 }
 
 export const joinQuest = async (ChainXP_abi, userId, gameId, questId, signer) => {
-    const contract = new ethers.Contract("0xb1Bce02506dA4010a77E788C21655A5B36AE8A41", ChainXP_abi, signer)
+    const contract = new ethers.Contract("0x610C63e6d6f7bEd8589fe06De840Db46d347A999", ChainXP_abi, signer)
     await contract.joinQuest(userId, gameId, questId)
 }
 
 export const rejoinQuest = async (ChainXP_abi, userId, gameId, questId, signer) => {
-    const contract = new ethers.Contract("0xb1Bce02506dA4010a77E788C21655A5B36AE8A41", ChainXP_abi, signer)
+    const contract = new ethers.Contract("0x610C63e6d6f7bEd8589fe06De840Db46d347A999", ChainXP_abi, signer)
     await contract.rejoinQuest(userId, gameId, questId)
 }
 
-export const createProfile = async (ChainXP_abi, profile, name, bio, country, socials, links, signer) => {
+export const createProfile = async (ChainXP_abi, profile, name, bio, country, signer) => {
     const iface = new ethers.utils.Interface(ChainXP_abi)
     await durin_call(signer, {
-        to: '0xb1Bce02506dA4010a77E788C21655A5B36AE8A41',
+        to: '0x610C63e6d6f7bEd8589fe06De840Db46d347A999',
         data: iface.encodeFunctionData('createProfile', [
           profile,
           name,
           bio,
-          country,
-          socials,
-          links
+          country
         ]),
       })
 }
@@ -80,7 +87,7 @@ export const createProfile = async (ChainXP_abi, profile, name, bio, country, so
 export const createGame = async (ChainXP_abi, name, contractAddress, description, install, logo, signer) => {
     const iface = new ethers.utils.Interface(ChainXP_abi)
     await durin_call(signer, {
-        to: '0xb1Bce02506dA4010a77E788C21655A5B36AE8A41',
+        to: '0x610C63e6d6f7bEd8589fe06De840Db46d347A999',
         data: iface.encodeFunctionData('createGame', [
           name,
           contractAddress,
@@ -94,7 +101,7 @@ export const createGame = async (ChainXP_abi, name, contractAddress, description
 export const addQuest = async (ChainXP_abi, gameId, title, description, enterFees, requiredLevel, duration, rewards, nTries, signer) => {
     const iface = new ethers.utils.Interface(ChainXP_abi)
     await durin_call(signer, {
-        to: '0xb1Bce02506dA4010a77E788C21655A5B36AE8A41',
+        to: '0x610C63e6d6f7bEd8589fe06De840Db46d347A999',
         data: iface.encodeFunctionData('addQuest', [
           gameId,
           title,

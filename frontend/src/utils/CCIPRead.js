@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 
-import Chaingame_abi from '../abi/Chaingame.json'
+import ChainXP_abi from '../abi/ChainXP.json'
 
 async function httpcall(urls, to, callData) {
   console.log(to)
@@ -24,9 +24,12 @@ async function durin_call(
   signer,
   dataObject
 ) {
-  const iface = new ethers.utils.Interface(Chaingame_abi.abi)
+  console.log("here")
+  const iface = new ethers.utils.Interface(ChainXP_abi.abi)
+  console.log(iface.parseError(await signer.call(dataObject)))
   const { sender, urls, callData, callbackFunction, extraData } =
     iface.parseError(await signer.call(dataObject)).args
+  console.log(sender)
   const to = await dataObject.to
   if (sender.toLowerCase() !== to?.toLowerCase()) {
     throw new Error('Cannot handle OffchainLookup raised inside nested call')
