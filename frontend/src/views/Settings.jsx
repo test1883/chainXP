@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import AddQuestForm from "../components/AddQuestForm/AddQuestForm";
-import Gamelist from "../components/AddQuestForm/Gamelist";
 import { useEthersSigner } from "../utils/ethers";
 import { createProfile, getProfile, uploadToIPFS } from "../utils/functions";
 import ChainXP from "../abi/ChainXP.json";
@@ -14,9 +13,9 @@ function Settings() {
     country: null,
   });
   const [edit, setEdit] = useState(true);
-
+  const [loaded,setLoaded] = useState(false)
   useEffect(() => {
-    if (signer) {
+    if (signer && !loaded) {
       (async () => {
         const prof = await getProfile(await signer.getAddress());
         if (prof) {
@@ -28,9 +27,10 @@ function Settings() {
           });
           setEdit(false);
         }
+        setLoaded(true)
       })();
     }
-  }, [signer]);
+  }, [signer, loaded]);
 
   const loadImage = function (event) {
     setProfile({
@@ -104,11 +104,13 @@ function Settings() {
                             Profile Image
                           </label>
                           <div className="col-md-8 col-lg-9">
-                            <img
-                              src={profile.image}
-                              id="profile"
-                              alt="Profile"
-                            />
+                            {profile.image && (
+                              <img
+                                src={profile.image}
+                                id="profile"
+                                alt="Profile"
+                              />
+                            )}
                             {edit && (
                               <div className="pt-2">
                                 <input

@@ -1,7 +1,7 @@
 import React from "react";
 import xp from "../../../../assets/xp.jpg";
 
-const GameInfo = () => {
+const GameInfo = ({level, earnings}) => {
   return (
     <>
       <div className="col-lg-12">
@@ -17,7 +17,7 @@ const GameInfo = () => {
                     <img id="balance" src={xp} alt="" />
                   </div>
                   <div className="ps-3">
-                    <h6>10 XP</h6>
+                    <h6>{level*10} XP</h6>
                   </div>
                 </div>
               </div>
@@ -34,7 +34,7 @@ const GameInfo = () => {
                     <img id="balance" src={xp} alt="" />
                   </div>
                   <div className="ps-3">
-                    <h6>400 XP</h6>
+                    <h6>{earnings} XP</h6>
                   </div>
                 </div>
               </div>

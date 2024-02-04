@@ -1,5 +1,3 @@
-import { ethers } from "ethers";
-
 task("deploy-main", "Deploying ChainXP contract")
   .addParam("gateway", "Gateway URL")
   .addParam("signer", "The signer's address")

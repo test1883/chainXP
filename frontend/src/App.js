@@ -36,7 +36,7 @@ const App = () => {
                 <div className="row">
                   <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/games" element={<Games />} />
+                    <Route path="/games/*" element={<Games />} />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/quests" element={<Quests />} />
                     <Route path="*" element={<Home />} />

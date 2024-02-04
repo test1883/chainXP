@@ -270,4 +270,8 @@ contract ChainXP {
         return (uQuests, qDetails);
     }
 
+    function earnings(uint256 gameId) external view returns(uint256) {
+        return userEarnings[userAddressToId[msg.sender]][gameId];
+    }
+
 }

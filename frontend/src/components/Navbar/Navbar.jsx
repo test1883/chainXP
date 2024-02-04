@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/address.jpg";
-import { Connector, useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { useEthersSigner } from "../../utils/ethers";
 import { getProfile } from "../../utils/functions";
 
@@ -20,7 +19,6 @@ const Navbar = () => {
     if (signer) {
       (async () => {
         const prof = await getProfile(address);
-        console.log(prof);
         setProfile("https://ipfs.particle.network/" + prof.profile);
       })();
     }
@@ -39,7 +37,6 @@ const Navbar = () => {
         lg:hidden"
         ></i>
         <Link to="/" className="logo d-flex align-items-center">
-          <img src={logo} alt="" className="h-[70px] w-[70px] object-cover" />
           <span className="d-none d-lg-block">ChainXP</span>
         </Link>
       </div>
@@ -62,11 +59,13 @@ const Navbar = () => {
                   to="/profile"
                   data-bs-toggle="dropdown"
                 >
-                  <img
-                    src={profileImage}
-                    alt="Profile"
-                    className="rounded-circle"
-                  />
+                  {profileImage && (
+                    <img
+                      src={profileImage}
+                      alt="Profile"
+                      className="rounded-circle"
+                    />
+                  )}
                   <span className="d-none d-md-block ps-2">
                     {address.slice(0, 6)}...{address.slice(-4)}
                   </span>

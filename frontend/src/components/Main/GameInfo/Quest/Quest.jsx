@@ -1,18 +1,79 @@
-import React, { useState } from "react";
-import useimage from "../../../../assets/address.jpg";
+import React, { useEffect, useState } from "react";
 import Modal from "../../Games/Modal";
+import { gameQuests, getGames, ongoingQuests } from "../../../../utils/functions";
+import ChainXP from "../../../../abi/ChainXP.json"
+import { useEthersSigner } from "../../../../utils/ethers";
 
-const cardData = [
-  { name: "sone tvdx sfgff", reward: "10", level: "1", id: 1 },
-  { name: "husus autemfe effe", reward: "15", level: "2", id: 2 },
-  { name: "Idan usbw ffefef", reward: "20", level: "3", id: 3 },
-  { name: "besos corn", reward: "25", level: "4", id: 4 },
-  { name: "nacy colen fdsi udf dfdf", reward: "30", level: "5", id: 5 },
-  { name: "nacy colenhf", reward: "40", level: "6", id: 6 },
-];
-
-const Quest = () => {
+const Quest = ({user, game}) => {
   const [isGamemodalOpen, setIsGamemodalOpen] = useState(false);
+  const [data, setData] = useState([])
+  const [games, setGames] = useState()
+  const signer = useEthersSigner()
+
+  useEffect(() => {
+    if (signer) {
+      (async () => {
+        const res = await getGames()
+        const formattedGames = res.reduce((g, el) => {
+          return {
+            ...g,
+            [el.game_id]: "https://ipfs.particle.network/" + el.logo,
+          }
+        }, {})
+        setGames(formattedGames)
+        if (game) {
+          const quests = await gameQuests(ChainXP.abi, game.gameId, signer)
+          const temp = []
+          for (let i = 0; i < quests.quests.length; i++) {
+            for (let j = 0; j < quests.questDetails.length; j++) {
+              if (quests.questDetails[j][0] === quests.quests[i].quest_id && quests.questDetails[j][1] === quests.quests[i].game_id) {
+                temp.push(
+                  {
+                    questId: Number(quests.questDetails[j][0]),
+                    gameId: Number(quests.questDetails[j][1]),
+                    endTime: Number(quests.questDetails[j][2]),
+                    requiredLevel: Number(quests.questDetails[j][3]),
+                    enterFees: Number(quests.questDetails[j][4]),
+                    rewards: Number(quests.questDetails[j][5]),
+                    nTries: Number(quests.questDetails[j][6]),
+                    title: quests.quests[i].title,
+                    description: quests.quests[i].description
+                  }
+                )
+              }
+            }  
+          }
+          setData(temp)
+        } else if (user) {
+          const quests = await ongoingQuests(ChainXP.abi, signer)
+          const temp = []
+          for (let i = 0; i < quests.quests.length; i++) {
+            for (let j = 0; j < quests.questDetails[0].length; j++) {
+              if (quests.questDetails[0][j][0] === quests.quests[i].quest_id && quests.questDetails[0][j][1] === quests.quests[i].game_id) {
+                temp.push(
+                  {
+                    questId: Number(quests.questDetails[0][j][0]),
+                    gameId: Number(quests.questDetails[0][j][1]),
+                    endTime: Number(quests.questDetails[0][j][2]),
+                    requiredLevel: Number(quests.questDetails[0][j][3]),
+                    enterFees: Number(quests.questDetails[0][j][4]),
+                    rewards: Number(quests.questDetails[0][j][5]),
+                    nTries: Number(quests.questDetails[0][j][6]),
+                    title: quests.quests[i].title,
+                    description: quests.quests[i].description,
+                    userId: Number(quests.questDetails[1][j][0]),
+                    triesTaken: Number(quests.questDetails[1][j][3]),
+                    status: Number(quests.questDetails[1][j][4])
+                  }
+                )
+              }
+            }  
+          }
+          setData(temp)
+        }
+      })()
+    }
+  }, [signer, game, user])
 
   const handleGamemodalClick = () => {
     setIsGamemodalOpen(true);
@@ -33,8 +94,8 @@ const Quest = () => {
         <h5 className="card-title">Quests</h5>
 
         <div className="row">
-          {cardData.map((card) => (
-            <div key={card.id} className="col-lg-6">
+          {data.map((quest, key) => (
+            <div key={key} className="col-lg-6">
               <div
                 className=""
                 style={{
@@ -46,9 +107,9 @@ const Quest = () => {
                 <div className="card-body pb-0">
                   <div className="news">
                     <div className="post-item clearfix">
-                      <img src={useimage} alt="" />
+                      <img src={games[quest.gameId]} alt="" />
                       <h4>
-                        <a href="#">{card.name}</a>
+                        {quest.title}
                       </h4>
                       <p>
                         <b
@@ -60,7 +121,7 @@ const Quest = () => {
                         </b>
                         <span style={{ color: "whitesmoke" }}>
                           {" "}
-                          Level {card.level}
+                          Level Required {quest.requiredLevel}
                         </span>
                       </p>
                       <div className="d-flex justify-content-between align-items-center p-2">
@@ -71,13 +132,13 @@ const Quest = () => {
                             fontSize: "medium",
                           }}
                         >
-                          {card.reward} xp
+                          +{quest.reward} xp
                         </span>
                         <button
                           onClick={handleGamemodalClick}
                           className="btn btn-warning followbtn"
                         >
-                          Enter
+                          Enter -{quest.enterFees} xp
                         </button>
                       </div>
                     </div>
