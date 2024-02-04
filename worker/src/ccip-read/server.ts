@@ -66,13 +66,17 @@ export function makeServer(privateKey: string, env: Env) {
       func: async (args: Result) => {
         console.log(args)
         const [gameId, questId, title, description, nTries] = args;
+        console.log(Number(gameId))
+        console.log(Number(questId))
+        console.log(Number(nTries))
         await addQuest({
-          game_id: gameId,
-          quest_id: questId,
+          game_id: Number(gameId),
+          quest_id: Number(questId),
           title,
           description,
-          n_tries: nTries
+          n_tries: Number(nTries)
         }, env)
+        console.log("here")
         // Hash and sign the response
         let messageHash = ethers.utils.solidityKeccak256(
           ['uint256', 'uint256'],

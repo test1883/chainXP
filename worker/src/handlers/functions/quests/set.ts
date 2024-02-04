@@ -6,10 +6,9 @@ import { stringifyQuestForDb } from './utils'
 export async function set(questData: Quest, env: Env) {
   const db = createKysely(env)
   const body = stringifyQuestForDb(questData)
-
+  console.log(body)
   await db
     .insertInto('quests')
     .values(body)
-    .onConflict((oc) => oc.column('questId').where('gameId', '=', body.gameId).doUpdateSet(body))
     .execute()
 }

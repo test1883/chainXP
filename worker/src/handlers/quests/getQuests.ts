@@ -6,7 +6,7 @@ import { get } from '../functions/quests/get'
 
 export async function getQuests(request: IRequest, env: Env) {
   const schema = zod.object({
-    gameId: zod.number(),
+    gameId: zod.string(),
   })
   const safeParse = schema.safeParse(request.params)
 
@@ -16,7 +16,7 @@ export async function getQuests(request: IRequest, env: Env) {
   }
 
   const { gameId } = safeParse.data
-  const questData = await get(gameId, env)
+  const questData = await get(Number(gameId), env)
 
   if (questData === null) {
     return new Response('No Quests found', { status: 404 })
