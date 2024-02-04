@@ -94,7 +94,7 @@ declare class DateAdapterBase implements DateAdapter {
    * @example
    * Chart._adapters._date.override<{myAdapterOption: string}>({
    *   init() {
-   *     console.log(this.options.myAdapterOption);
+   *     //console.log(this.options.myAdapterOption);
    *   }
    * })
    */

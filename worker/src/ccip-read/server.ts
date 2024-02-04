@@ -15,7 +15,7 @@ export function makeServer(privateKey: string, env: Env) {
     {
       type: 'createProfile',
       func: async (args: Result) => {
-        console.log(args)
+        //console.log(args)
         const [userId, profile, owner, name, bio, country] = args;
         await setProfile({
           user_id: Number(userId),
@@ -32,14 +32,14 @@ export function makeServer(privateKey: string, env: Env) {
         )
         let messageHashBinary = ethers.utils.arrayify(messageHash)
         const sig = await signer.signMessage(messageHashBinary)
-        console.log(sig)
+        //console.log(sig)
         return [sig]
       },
     },
     {
       type: 'createGame',
       func: async (args: Result) => {
-        console.log(args)
+        //console.log(args)
         const [gameId, name, owner, contractAddress, description, install, logo] = args
         await setGame({
           description: description,
@@ -57,18 +57,18 @@ export function makeServer(privateKey: string, env: Env) {
         )
         let messageHashBinary = ethers.utils.arrayify(messageHash)
         const sig = await signer.signMessage(messageHashBinary)
-        console.log(sig)
+        //console.log(sig)
         return [sig]
       },
     },
     {
       type: 'addQuest',
       func: async (args: Result) => {
-        console.log(args)
+        //console.log(args)
         const [gameId, questId, title, description, nTries] = args;
-        console.log(Number(gameId))
-        console.log(Number(questId))
-        console.log(Number(nTries))
+        //console.log(Number(gameId))
+        //console.log(Number(questId))
+        //console.log(Number(nTries))
         await addQuest({
           game_id: Number(gameId),
           quest_id: Number(questId),
@@ -76,7 +76,7 @@ export function makeServer(privateKey: string, env: Env) {
           description,
           n_tries: Number(nTries)
         }, env)
-        console.log("here")
+        //console.log("here")
         // Hash and sign the response
         let messageHash = ethers.utils.solidityKeccak256(
           ['uint256', 'uint256'],
@@ -84,7 +84,7 @@ export function makeServer(privateKey: string, env: Env) {
         )
         let messageHashBinary = ethers.utils.arrayify(messageHash)
         const sig = await signer.signMessage(messageHashBinary)
-        console.log(sig)
+        //console.log(sig)
         return [sig]
       },
     },

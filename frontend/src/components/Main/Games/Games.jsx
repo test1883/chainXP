@@ -42,7 +42,7 @@ const Games = () => {
         if (pEarnings) {
           setEarnings(parseInt(pEarnings))
         }
-        console.log(g)
+        //console.log(g)
       })()
     }
   }, [pathname, searchQuery, signer])

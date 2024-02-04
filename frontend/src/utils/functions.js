@@ -5,7 +5,7 @@ import durin_call from './CCIPRead'
 export const uploadToIPFS = async (file) => {
     const form = new FormData();
     form.append('file', file);
-    console.log(process.env.REACT_APP_USERNAME)
+    //console.log(process.env.REACT_APP_USERNAME)
     const username = process.env.REACT_APP_USERNAME
     const password = process.env.REACT_APP_PASSWORD
     let res = await fetch("https://rpc.particle.network/ipfs/upload", {
@@ -13,7 +13,7 @@ export const uploadToIPFS = async (file) => {
         body: form,
         headers: {'Authorization': 'Basic ' + btoa(username+ ':' + password)}
     });
-    console.log(res)
+    //console.log(res)
     const { cid } = await res.json()
     return cid
 }
@@ -61,17 +61,17 @@ export const ongoingQuests = async (ChainXP_abi, signer, setState) => {
     const questDetails = await contract.ongoingQuests()
     let onQuests = [];
     const ongoing = await questDetails[0].map(async quest => {
-        console.log(quest)
+        //console.log(quest)
         const {quests} = await gameQuests(ChainXP_abi, Number(quest[2]), signer)
-        console.log(quests)
+        //console.log(quests)
         await quests.map(async (q, key) => {
             if (Number(q.quest_id) === Number(quest[1])) {
-                console.log("here")
+                //console.log("here")
                 onQuests.push(q)
-                console.log(onQuests)
+                //console.log(onQuests)
             }
             if (key === quests.length-1) {
-                console.log("hereeee")
+                //console.log("hereeee")
                 setState(onQuests)
             }
         })

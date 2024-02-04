@@ -22,12 +22,12 @@ const Quest = ({user, game}) => {
             [el.game_id]: "https://ipfs.particle.network/" + el.logo,
           }
         }, {})
-        console.log(formattedGames)
+        //console.log(formattedGames)
         setGames(formattedGames)
         if (game) {
           const quests = await gameQuests(ChainXP.abi, game.gameId, signer)
           const temp = []
-          console.log(quests)
+          //console.log(quests)
           for (let i = 0; i < quests.quests.length; i++) {
             for (let j = 0; j < quests.questDetails.length; j++) {
               if (Number(quests.questDetails[j][0]) === Number(quests.quests[i].quest_id) && Number(quests.questDetails[j][1]) === Number(quests.quests[i].game_id)) {
@@ -47,16 +47,16 @@ const Quest = ({user, game}) => {
           }
           setData(temp)
         } else if (user) {
-          console.log("her")
+          //console.log("her")
           const quests = await ongoingQuests(ChainXP.abi, signer, (q) => setOn(q))
           const temp = []
-          console.log(on)
-          console.log(quests)
+          //console.log(on)
+          //console.log(quests)
           for (let i = 0; i < on.length; i++) {
             for (let j = 0; j < quests.questDetails[0].length; j++) {
-              console.log("jj")
+              //console.log("jj")
               if (Number(quests.questDetails[0][j][1]) === Number(on[i].quest_id) && Number(quests.questDetails[0][j][0]) === Number(on[i].game_id)) {
-                console.log("ff")
+                //console.log("ff")
                 temp.push(
                   {
                     questId: Number(quests.questDetails[0][j][1]),

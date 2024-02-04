@@ -7858,7 +7858,7 @@ function getLeastCommonMultiple(a, b) {
 var ECHARTS_PREFIX = '[ECharts] ';
 var storedLogs = {};
 var hasConsole = typeof console !== 'undefined' // eslint-disable-next-line
-&& console.warn && console.log;
+&& console.warn && //console.log;
 
 function outputLog(type, str, onlyOnce) {
   if (hasConsole) {
@@ -14697,11 +14697,11 @@ function animateOrSetProps(animationType, el, props, animatableModel, dataIndex,
  * @example
  *     graphic.updateProps(el, {
  *         position: [100, 100]
- *     }, seriesModel, dataIndex, function () { console.log('Animation done!'); });
+ *     }, seriesModel, dataIndex, function () { //console.log('Animation done!'); });
  *     // Or
  *     graphic.updateProps(el, {
  *         position: [100, 100]
- *     }, seriesModel, function () { console.log('Animation done!'); });
+ *     }, seriesModel, function () { //console.log('Animation done!'); });
  */
 
 
@@ -21380,8 +21380,8 @@ var iterator = function () {
 //         args.push('color: green', 'color: red'),
 //         `${item.text}: %c${item.value}`
 //     )).join('%c, ');
-//     console.log.apply(console, [msg].concat(args));
-//     // console.log(this);
+//     //console.log.apply(console, [msg].concat(args));
+//     // //console.log(this);
 // };
 // window.printPipeline = function (task: any, prefix: string) {
 //     const pipeline = task.__pipeline;
@@ -21419,7 +21419,7 @@ var iterator = function () {
 // window.printChainAEachInChainB = function (chainHeadTaskA, chainHeadTaskB) {
 //     let chainA = window.showChain(chainHeadTaskA);
 //     for (let i = 0; i < chainA.length; i++) {
-//         console.log('chainAIdx:', i, 'inChainB:', window.findTaskInChain(chainA[i].task, chainHeadTaskB));
+//         //console.log('chainAIdx:', i, 'inChainB:', window.findTaskInChain(chainA[i].task, chainHeadTaskB));
 //     }
 // };
 
@@ -24112,7 +24112,7 @@ function (_super) {
     //   class B extends A {}
     //   var C = B.extend({xxx: 5});
     //   var c = new C();
-    //   console.log(c.xxx); // expect 5 but always 1.
+    //   //console.log(c.xxx); // expect 5 but always 1.
     var _this = _super !== null && _super.apply(this, arguments) || this; // ---------------------------------------
     // Props about data selection
     // ---------------------------------------
@@ -28411,7 +28411,7 @@ function (_super) {
           // the extent of the coordinate system is determined in the first frame (the
           // frame is executed immediately after task reset.
           // this._coordSysMgr.update(ecModel, api);
-          // console.log('--- ec frame visual ---', remainTime);
+          // //console.log('--- ec frame visual ---', remainTime);
 
           scheduler.performVisualTasks(ecModel);
           renderSeries(this, this._model, api, 'remain', {});
@@ -34944,7 +34944,7 @@ function getIntervalTicks(bottomUnitName, approxInterval, isUTC, extent) {
 
     for (var i = 0; i < newAddedTicks.length; i++) {
       levelTicks.push(newAddedTicks[i]);
-    } // newAddedTicks.length && console.log(unitName, newAddedTicks);
+    } // newAddedTicks.length && //console.log(unitName, newAddedTicks);
 
 
     return newAddedTicks;
@@ -90361,7 +90361,7 @@ function (_super) {
 
     brushRect.attr('ignore', true);
     var brushShape = brushRect.shape;
-    var brushEndTime = +new Date(); // console.log(brushEndTime - this._brushStartTime);
+    var brushEndTime = +new Date(); // //console.log(brushEndTime - this._brushStartTime);
 
     if (brushEndTime - this._brushStartTime < 200 && Math.abs(brushShape.width) < 5) {
       // Will treat it as a click
@@ -92220,7 +92220,7 @@ var visualMapEncodingHandlers = [{
           visualMetaList.push(visualMeta);
         }
       }
-    }); // console.log(JSON.stringify(visualMetaList.map(a => a.stops)));
+    }); // //console.log(JSON.stringify(visualMetaList.map(a => a.stops)));
 
     seriesModel.getData().setVisual('visualMeta', visualMetaList);
   }

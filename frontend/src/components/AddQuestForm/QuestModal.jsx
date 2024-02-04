@@ -7,7 +7,7 @@ const QuestModal = ({ gameId, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(gameId)
+    //console.log(gameId)
     await addQuest(ChainXP.abi, gameId, quest.title, quest.description, quest.enterFees, quest.requiredLevel-1,  quest.duration*60, quest.rewards, quest.nTries, signer)
     setQuest({
         title: null, 

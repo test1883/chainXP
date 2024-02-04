@@ -10,7 +10,7 @@ const GameTab = () => {
   useEffect(() => {
     (async () => {
       const res = await getGames()
-      console.log(res)
+      //console.log(res)
       setGames(res)
     })()
   }, [])

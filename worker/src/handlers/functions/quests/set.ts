@@ -6,7 +6,7 @@ import { stringifyQuestForDb } from './utils'
 export async function set(questData: Quest, env: Env) {
   const db = createKysely(env)
   const body = stringifyQuestForDb(questData)
-  console.log(body)
+  //console.log(body)
   await db
     .insertInto('quests')
     .values(body)

@@ -6370,7 +6370,7 @@
             },
             match,
             log: label => {
-              console.log(label, {
+              //console.log(label, {
                 constructors,
                 constructor: key,
                 params: args
@@ -19305,7 +19305,7 @@
         if (console.error) {
           console.error(message, ...x);
         } else {
-          console.log(message, ...x);
+          //console.log(message, ...x);
         }
       }
     };
