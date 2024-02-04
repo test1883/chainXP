@@ -5,15 +5,15 @@ import durin_call from './CCIPRead'
 export const uploadToIPFS = async (file) => {
     const form = new FormData();
     form.append('file', file);
-
+    console.log(process.env.REACT_APP_USERNAME)
+    const username = process.env.REACT_APP_USERNAME
+    const password = process.env.REACT_APP_PASSWORD
     let res = await fetch("https://rpc.particle.network/ipfs/upload", {
         method: "POST",
         body: form,
-        auth: {
-            username: process.env.REACT_APP_USERNAME,
-            password: process.env.REACT_APP_PASSWORD,
-        },
+        headers: {'Authorization': 'Basic ' + btoa(username+ ':' + password)}
     });
+    console.log(res)
     const { cid } = await res.json()
     return cid
 }
@@ -22,6 +22,12 @@ export const getProfile = async (address) => {
     const response = await fetch(process.env.REACT_APP_GATEWAY + "/get/" + address)
     const profile = await response.json()
     return profile
+}
+
+export const getGame = async (address) => {
+    const response = await fetch(process.env.REACT_APP_GATEWAY + "/game/" + address)
+    const game = await response.json()
+    return game
 }
 
 export const playerLevel = async (ChainXP_abi, gameId, signer) => {

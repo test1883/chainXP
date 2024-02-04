@@ -1,17 +1,48 @@
-import React, { useEffect } from "react";
-import profile from "../assets/address.jpg";
+import React, { useEffect, useState } from "react";
 import AddQuestForm from "../components/AddQuestForm/AddQuestForm";
 import Gamelist from "../components/AddQuestForm/Gamelist";
 import { useEthersSigner } from "../utils/ethers";
-import { createProfile } from "../utils/functions";
+import { createProfile, getProfile, uploadToIPFS } from "../utils/functions";
 import ChainXP from "../abi/ChainXP.json"
 
 function Settings() {
   const signer = useEthersSigner()
+  const [profile, setProfile] = useState({
+    image: null, name: null, bio: null, country: null
+  })
+  const [edit, setEdit] = useState(true)
+
   useEffect(() => {
-    if (!signer) alert("no")
-    else console.log(signer)
+    if (signer) {
+      (async () => {
+        const prof = await getProfile(await signer.getAddress())
+        if (prof) {
+          setProfile({
+            image: "https://ipfs.particle.network/" + prof.profile,
+            name: prof.name,
+            bio: prof.bio,
+            country: prof.country
+          })
+          setEdit(false)
+        } 
+      })()
+    }
   }, [signer])
+
+  const loadImage = function(event) {
+    setProfile({
+      ...profile,
+      image: URL.createObjectURL(event.target.files[0])
+    })
+  };
+
+  const save = async () => {
+    const file = document.getElementById("profileInput").files[0];
+    const cid = await uploadToIPFS(file)
+    await createProfile(ChainXP.abi, cid, profile.name, profile.bio, profile.country, signer)
+    setEdit(false)
+  }
+
   return (
     <>
       <div className="col-lg-12">
@@ -45,21 +76,7 @@ function Settings() {
                         data-toggle="tab"
                         data-target="#game-settings"
                       >
-                        Games
-                      </button>
-                    </li>
-
-                    <li className="nav-item">
-                      <button
-                        className="nav-link"
-                        style={{
-                          color: "whitesmoke",
-                          background: "transparent",
-                        }}
-                        data-toggle="tab"
-                        data-target="#game-list"
-                      >
-                        Games List
+                        Dev Mode
                       </button>
                     </li>
                   </ul>
@@ -77,23 +94,19 @@ function Settings() {
                             Profile Image
                           </label>
                           <div className="col-md-8 col-lg-9">
-                            <img src={profile} alt="Profile" />
-                            <div className="pt-2">
-                              <a
-                                href="#"
-                                className="btn btn-primary btn-sm"
-                                title="Upload new profile image"
-                              >
-                                <i className="bi bi-upload"></i>
-                              </a>
-                              <a
-                                href="#"
-                                className="btn btn-danger btn-sm"
-                                title="Remove my profile image"
-                              >
-                                <i className="bi bi-trash"></i>
-                              </a>
-                            </div>
+                            <img src={profile.image} id="profile" alt="Profile" />
+                            {edit && (
+                              <div className="pt-2">
+                                <input type="file" name="profileInput" id="profileInput" style={{display: "none"}} required onChange={loadImage}/>
+                                <label
+                                  for="profileInput"
+                                  className="btn btn-primary btn-sm"
+                                  title="Upload new profile image"
+                                >
+                                  <i className="bi bi-upload"></i>
+                                </label>
+                              </div>
+                            )}
                           </div>
                         </div>
 
@@ -106,11 +119,18 @@ function Settings() {
                           </label>
                           <div className="col-md-8 col-lg-9">
                             <input
+                              disabled={!edit}
                               name="fullName"
                               type="text"
                               className="form-control"
                               id="fullName"
-                              value="Chain XP"
+                              value={profile.name}
+                              onChange={(e) => {
+                                setProfile({
+                                  ...profile,
+                                  name: e.target.value
+                                })
+                              }}
                             />
                           </div>
                         </div>
@@ -124,10 +144,18 @@ function Settings() {
                           </label>
                           <div className="col-md-8 col-lg-9">
                             <textarea
+                              disabled={!edit}
                               name="about"
                               className="form-control"
                               id="about"
                               style={{ height: "100px" }}
+                              onChange={e => {
+                                setProfile({
+                                  ...profile,
+                                  bio: e.target.value
+                                })
+                              }}
+                              value={profile.bio}
                             >
                             </textarea>
                           </div>
@@ -142,22 +170,31 @@ function Settings() {
                           </label>
                           <div className="col-md-8 col-lg-9">
                             <input
+                              disabled={!edit}
                               name="country"
                               type="text"
                               className="form-control"
                               id="Country"
+                              value={profile.country}
+                              onChange={e => {
+                                setProfile({
+                                  ...profile,
+                                  country: e.target.value
+                                })
+                              }}
                             />
                           </div>
                         </div>
-
-                        <div className="text-center">
-                          <button type="submit" className="btn btn-primary" onClick={(e) => {
-                            e.preventDefault()
-                            createProfile(ChainXP.abi, "h", "h", "h", "h", signer)}
-                          }>
-                            Save Changes
-                          </button>
-                        </div>
+                        {edit && (
+                          <div className="text-center">
+                            <button type="submit" className="btn btn-primary" onClick={async (e) => {
+                              e.preventDefault()
+                              await save()
+                            }}>
+                              Save
+                            </button>
+                          </div>
+                        )}
                       </form>
                     </div>
 

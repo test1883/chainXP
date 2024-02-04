@@ -1,184 +1,193 @@
 // pages/index.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useEthersSigner } from "../../utils/ethers";
+import { createGame, getGame, uploadToIPFS } from "../../utils/functions";
+import ChainXP from "../../abi/ChainXP.json"
+import QuestModal from "./QuestModal";
 
-const styles = {
-  container: {
-    color: "white",
-    backgroundColor: "transparent",
-    padding: "20px",
-    fontFamily: "Arial, sans-serif",
-  },
-  formContainer: {
-    marginTop: "20px",
-  },
-  questContainer: {
-    marginBottom: "20px",
-  },
-  label: {
-    display: "block",
-    marginBottom: "5px",
-  },
-  input: {
-    width: "100%",
-    padding: "8px",
-    marginBottom: "10px",
-    borderRadius: "20px",
-  },
-  textarea: {
-    width: "100%",
-    padding: "8px",
-    marginBottom: "10px",
-  },
-  button: {
-    padding: "10px",
-    backgroundColor: "orange",
-    color: "white",
-    cursor: "pointer",
-    border: "none",
-    borderRadius: "5px",
-    marginRight: "10px",
-  },
-};
+const AddQuestForm = () => {
 
-const QuestForm = ({ totalLevels }) => {
-  const [quests, setQuests] = useState([]);
+  const signer = useEthersSigner()
+  const [game, setGame] = useState({
+    name: null, contractAddress: null, description: null, install: null, logo: null
+  })
+  const [edit, setEdit] = useState(true)
 
-  const handleAddQuest = () => {
-    setQuests((prevQuests) => [
-      ...prevQuests,
-      {
-        name: "",
-        description: "",
-        levelReward: 0,
-        levelNumber: prevQuests.length + 1,
-        timer: 0,
-      },
-    ]);
+  useEffect(() => {
+    if (signer) {
+      (async () => {
+        const res = await getGame(await signer.getAddress())
+        if (res) {
+          setGame({
+            logo: "https://ipfs.particle.network/" + res.logo,
+            name: res.name,
+            contractAddress: res.contract,
+            description: res.description,
+            install: res.install
+          })
+          setEdit(false)
+        } 
+      })()
+    }
+  }, [signer])
+
+  const loadImage = function(event) {
+    setGame({
+      ...game,
+      logo: URL.createObjectURL(event.target.files[0])
+    })
   };
 
-  const handleQuestChange = (index, field, value) => {
-    setQuests((prevQuests) =>
-      prevQuests.map((quest, i) =>
-        i === index ? { ...quest, [field]: value } : quest
-      )
-    );
-  };
-
-  const handleSubmit = () => {
-    console.log("Game Submitted:", { totalLevels, quests });
-  };
+  const save = async () => {
+    const file = document.getElementById("gameInput").files[0];
+    const cid = await uploadToIPFS(file)
+    await createGame(ChainXP.abi, game.name, game.contractAddress, game.description, game.install, cid, signer)
+    setEdit(false)
+  }
 
   return (
-    <div style={styles.formContainer}>
-      {quests.map((quest, index) => (
-        <div key={index} style={styles.questContainer}>
-          <h4>Quest {quest.levelNumber}</h4>
-          <div>
-            <label style={styles.label}>Name:</label>
+    <div
+      className="tab-pane fade show active profile-edit"
+      id="profile-edit"
+    >
+      <div className="text-center"><h3 style={{color: "gold"}}>{edit && "Add "}Your Game</h3></div>
+      <form>
+        <div className="row mb-3">
+          <label
+            for="gameLogo"
+            className="col-md-4 col-lg-3 col-form-label"
+          >
+            Game Logo
+          </label>
+          <div className="col-md-8 col-lg-9">
+            <img src={game.logo} id="game" alt="Game" />
+            {edit && (
+              <div className="pt-2">
+                <input type="file" name="gameInput" id="gameInput" style={{display: "none"}} required onChange={loadImage}/>
+                <label
+                  for="gameInput"
+                  className="btn btn-primary btn-sm"
+                  title="Upload new game logo"
+                >
+                  <i className="bi bi-upload"></i>
+                </label>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="row mb-3">
+          <label
+            for="name"
+            className="col-md-4 col-lg-3 col-form-label"
+          >
+            Game's Name
+          </label>
+          <div className="col-md-8 col-lg-9">
             <input
+              disabled={!edit}
+              name="name"
               type="text"
-              value={quest.name}
-              onChange={(e) => handleQuestChange(index, "name", e.target.value)}
-              style={styles.input}
-            />
-          </div>
-          <div>
-            <label style={styles.label}>Description:</label>
-            <textarea
-              value={quest.description}
-              onChange={(e) =>
-                handleQuestChange(index, "description", e.target.value)
-              }
-              style={styles.textarea}
-            />
-          </div>
-          <div>
-            <label style={styles.label}>Level Reward:</label>
-            <input
-              type="number"
-              value={quest.levelReward}
-              onChange={(e) =>
-                handleQuestChange(
-                  index,
-                  "levelReward",
-                  parseFloat(e.target.value)
-                )
-              }
-              style={styles.input}
-            />
-          </div>
-          <div>
-            <label style={styles.label}>Timer (seconds):</label>
-            <input
-              type="number"
-              value={quest.timer}
-              onChange={(e) =>
-                handleQuestChange(index, "timer", parseInt(e.target.value))
-              }
-              style={styles.input}
+              className="form-control"
+              id="name"
+              value={game.name}
+              onChange={(e) => {
+                setGame({
+                  ...game,
+                  name: e.target.value
+                })
+              }}
             />
           </div>
         </div>
-      ))}
-      <button onClick={handleAddQuest} style={styles.button}>
-        Add Quest
-      </button>
-      <button onClick={handleSubmit} style={styles.button}>
-        Submit Game
-      </button>
-    </div>
-  );
-};
 
-const AddQuestForm = () => {
-  const [gameInfo, setGameInfo] = useState({
-    gameImage: "",
-    gameName: "",
-    totalLevels: 0,
-  });
+        <div className="row mb-3">
+          <label
+            for="description"
+            className="col-md-4 col-lg-3 col-form-label"
+          >
+            Description
+          </label>
+          <div className="col-md-8 col-lg-9">
+            <textarea
+              disabled={!edit}
+              name="description"
+              className="form-control"
+              id="description"
+              style={{ height: "100px" }}
+              onChange={e => {
+                setGame({
+                  ...game,
+                  description: e.target.value
+                })
+              }}
+              value={game.description}
+            >
+            </textarea>
+          </div>
+        </div>
 
-  return (
-    <div style={styles.container}>
-      <h1>Set Game</h1>
-      <div>
-        <label style={styles.label}>Game Image:</label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) =>
-            setGameInfo({ ...gameInfo, gameImage: e.target.value })
-          }
-          style={styles.input}
-        />
-      </div>
-      <div>
-        <label style={styles.label}>Game Name:</label>
-        <input
-          type="text"
-          value={gameInfo.gameName}
-          onChange={(e) =>
-            setGameInfo({ ...gameInfo, gameName: e.target.value })
-          }
-          style={styles.input}
-        />
-      </div>
-      <div>
-        <label style={styles.label}>Total Levels:</label>
-        <input
-          type="number"
-          value={gameInfo.totalLevels}
-          onChange={(e) =>
-            setGameInfo({ ...gameInfo, totalLevels: parseInt(e.target.value) })
-          }
-          style={styles.input}
-        />
-      </div>
-      {/* <button onClick={() => console.log('Image:', gameInfo.gameImage)} style={styles.button}>
-        Preview Image
-      </button> */}
-      {gameInfo.totalLevels > 0 && (
-        <QuestForm totalLevels={gameInfo.totalLevels} />
-      )}
+        <div className="row mb-3">
+          <label
+            for="contract"
+            className="col-md-4 col-lg-3 col-form-label"
+          >
+            Contract Address
+          </label>
+          <div className="col-md-8 col-lg-9">
+            <input
+              disabled={!edit}
+              name="contract"
+              type="text"
+              className="form-control"
+              id="contract"
+              value={game.contractAddress}
+              onChange={e => {
+                setGame({
+                  ...game,
+                  contractAddress: e.target.value
+                })
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="row mb-3">
+          <label
+            for="guide"
+            className="col-md-4 col-lg-3 col-form-label"
+          >
+            How to play?
+          </label>
+          <div className="col-md-8 col-lg-9">
+            <input
+              disabled={!edit}
+              name="guide"
+              type="text"
+              className="form-control"
+              id="guide"
+              value={game.install}
+              onChange={e => {
+                setGame({
+                  ...game,
+                  install: e.target.value
+                })
+              }}
+            />
+          </div>
+        </div>
+        {edit && (
+          <div className="text-center">
+            <button type="submit" className="btn btn-primary" onClick={async (e) => {
+              e.preventDefault()
+              await save()
+            }}>
+              Save
+            </button>
+          </div>
+        )}
+      </form>
+      <QuestModal/>
     </div>
   );
 };
