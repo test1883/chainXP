@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import logo from "../../../assets/address.jpg";
 
-const Modal = ({ onClose, onSubmit }) => {
-  const [field1, setField1] = useState("");
-
+const Modal = ({ onClose, onSubmit, quest }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
+    onSubmit();
     // Close the modal
     onClose();
   };
@@ -16,15 +14,15 @@ const Modal = ({ onClose, onSubmit }) => {
         <span style={{ cursor: "pointer" }} className="close" onClick={onClose}>
           &times;
         </span>
-        <h2 style={header}>GAME DETAILS</h2>
+        <h2 style={header}>QUEST DETAILS</h2>
         <div className="maincard">
           <div className="card info-card revenue-card">
             <div className="card-body">
-              <h6 style={{ color: "gold" }}>The Gamifield quests onboard</h6>
+              <h6 style={{ color: "gold" }}>{quest.title}</h6>
               <div className="d-flex align-items-center">
                 <div className="">
                   <img
-                    src={logo}
+                    src={quest.logo}
                     style={{
                       height: "100%",
                       width: "100px",
@@ -35,53 +33,43 @@ const Modal = ({ onClose, onSubmit }) => {
                 </div>
                 <div className="ps-3">
                   <h5 className="c" style={{ color: "whitesmoke" }}>
-                    <b> Game: </b> The game title.
+                    <b> Reward: </b> {quest.rewards}XP
                   </h5>
                   <h5 className="c" style={{ color: "whitesmoke" }}>
-                    <b> Current Level: </b> 3
+                    <b> Minimum Level: </b> {quest.requiredLevel+1}
                   </h5>
                   <h5 className="c" style={{ color: "whitesmoke" }}>
                     <b> Duration: </b>{" "}
-                    <span style={{ color: "gray" }}>00 : 00 : 00</span>
+                    <span style={{ color: "gray" }}>{(quest.endTime)>(Date.now()/1000) ? parseInt((quest.endTime)-(Date.now()/1000)) : 0} secs left
+</span>
                   </h5>
                 </div>
               </div>
             </div>
           </div>
 
-          <div>
+          <div className="d-flex justify-content-between">
             <p>
               <b style={{ color: "goldenrod", fontSize: "20px" }}>
                 Description:{" "}
               </b>
               <span style={{ color: "white" }}>
-                Your swap is performed directly in Curve protocol ashb
-                silysgulidg ldisglyid gls iuyg lausy afsfuak stf sftf
+                {quest.description}
+              </span>
+            </p>
+            <p>
+              <b style={{ color: "goldenrod", fontSize: "20px" }}>
+                No. of Tries:{" "}
+              </b>
+              <span style={{ color: "white" }}>
+                {quest.nTries}
               </span>
             </p>
           </div>
-          <div className="form-group">
-            <label className="css-1owdu0o">
-              <div className="css-zkfaav" style={{ color: "gold" }}>
-                Enter Wallet Adress
-              </div>
-            </label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="oxwjk....evkvbh"
-              value={field1}
-              onChange={(e) => setField1(e.target.value)}
-              required
-            />
-          </div>
 
           <br />
-          <button style={cancelbut} type="button" className="button-style">
-            Enter
-          </button>
-          <button style={submitbut} type="submit" className="button-style">
-            Claim Rewards
+          <button style={submitbut} onClick={handleSubmit} type="submit" className="button-style">
+            Join Quest - {quest.enterFees}XP
           </button>
         </div>
       </div>

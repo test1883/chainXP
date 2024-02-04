@@ -24,7 +24,7 @@ const Home = () => {
     <>
       <div className="col-lg-8">
         <div className="row">
-          <Quest />
+          <Quest user={true}/>
 
           {/* End games */}
         </div>
@@ -33,7 +33,7 @@ const Home = () => {
       <Sidebar />
       {/* Render the Gamemodal if isGamemodalOpen is true */}
       {isGamemodalOpen && (
-        <Modal onClose={handleCloseGamemodal} onSubmit={handleSubmit} />
+        <Modal onClose={handleCloseGamemodal} onSubmit={handleSubmit}/>
       )}
     </>
   );

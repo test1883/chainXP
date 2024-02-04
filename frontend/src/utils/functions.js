@@ -56,21 +56,27 @@ export const gameQuests = async (ChainXP_abi, gameId, signer) => {
     return {quests, questDetails}
 }
 
-export const ongoingQuests =async (ChainXP_abi, signer) => {
+export const ongoingQuests = async (ChainXP_abi, signer, setState) => {
     const contract = new ethers.Contract("0x3426A44b0e47BbFB5f5a482737f4f849dB8cd87c", ChainXP_abi, signer)
     const questDetails = await contract.ongoingQuests()
-    const ongoing = await questDetails[0].map(quest => {
-        return {
-            gameId: quest[1],
-            questId: quest[2]
-        }
+    let onQuests = [];
+    const ongoing = await questDetails[0].map(async quest => {
+        console.log(quest)
+        const {quests} = await gameQuests(ChainXP_abi, Number(quest[2]), signer)
+        console.log(quests)
+        await quests.map(async (q, key) => {
+            if (Number(q.quest_id) === Number(quest[1])) {
+                console.log("here")
+                onQuests.push(q)
+                console.log(onQuests)
+            }
+            if (key === quests.length-1) {
+                console.log("hereeee")
+                setState(onQuests)
+            }
+        })
     })
-    const response = await fetch(process.env.REACT_APP_GATEWAY + "/ongoing", {
-        method: "POST",
-        body: JSON.stringify(ongoing)
-    })
-    const quests = await response.json()
-    return {quests, questDetails}
+    return {questDetails}
 }
 
 export const getXPBalance = async (XPToken_abi, signer) => {
