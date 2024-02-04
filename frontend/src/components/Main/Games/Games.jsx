@@ -50,18 +50,18 @@ const Games = () => {
                           <b> Game Title: </b>Gema current level quest
                         </h5>
                         <div className="d-flex justify-content-between align-items-center">
-                            <h5 className="c" style={{ color: "whitesmoke" }}>
+                          <h5 className="c" style={{ color: "whitesmoke" }}>
                             <b> Current Level: </b> 3
-                            </h5>
-                            <div className="text-center">
+                          </h5>
+                          <div className="text-center">
                             <button
-                                type="button"
-                                onClick={handleGamemodalClick}
-                                className="btn btn-warning"
+                              type="button"
+                              onClick={handleGamemodalClick}
+                              className="btn btn-warning"
                             >
-                                Know More
+                              Know More
                             </button>
-                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

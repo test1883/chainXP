@@ -51,30 +51,35 @@ const Quest = () => {
                         <a href="#">{card.name}</a>
                       </h4>
                       <p>
-                        <b style={{
-                          color: "gold"
-                        }}>00 : 00 : 00</b>
+                        <b
+                          style={{
+                            color: "gold",
+                          }}
+                        >
+                          00 : 00 : 00
+                        </b>
                         <span style={{ color: "whitesmoke" }}>
                           {" "}
                           Level {card.level}
                         </span>
                       </p>
                       <div className="d-flex justify-content-between align-items-center p-2">
-
-                      <span
-                        style={{
-                          color: "gold",
-                          fontFamily: "fantasy",
-                          fontSize: "medium",
-                        }}
-                      >
-                        {card.reward} xp
-                      </span>
-                      <button onClick={handleGamemodalClick} className="btn btn-warning followbtn">
-                        Enter
-                      </button>
+                        <span
+                          style={{
+                            color: "gold",
+                            fontFamily: "fantasy",
+                            fontSize: "medium",
+                          }}
+                        >
+                          {card.reward} xp
+                        </span>
+                        <button
+                          onClick={handleGamemodalClick}
+                          className="btn btn-warning followbtn"
+                        >
+                          Enter
+                        </button>
                       </div>
-
                     </div>
                   </div>
                 </div>

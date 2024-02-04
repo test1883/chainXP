@@ -62,7 +62,9 @@ const Modal = ({ onClose, onSubmit }) => {
           </div>
           <div className="form-group">
             <label className="css-1owdu0o">
-              <div className="css-zkfaav" style={{color: "gold"}}>Enter Wallet Adress</div>
+              <div className="css-zkfaav" style={{ color: "gold" }}>
+                Enter Wallet Adress
+              </div>
             </label>
             <input
               type="number"

@@ -3,45 +3,55 @@ import AddQuestForm from "../components/AddQuestForm/AddQuestForm";
 import Gamelist from "../components/AddQuestForm/Gamelist";
 import { useEthersSigner } from "../utils/ethers";
 import { createProfile, getProfile, uploadToIPFS } from "../utils/functions";
-import ChainXP from "../abi/ChainXP.json"
+import ChainXP from "../abi/ChainXP.json";
 
 function Settings() {
-  const signer = useEthersSigner()
+  const signer = useEthersSigner();
   const [profile, setProfile] = useState({
-    image: null, name: null, bio: null, country: null
-  })
-  const [edit, setEdit] = useState(true)
+    image: null,
+    name: null,
+    bio: null,
+    country: null,
+  });
+  const [edit, setEdit] = useState(true);
 
   useEffect(() => {
     if (signer) {
       (async () => {
-        const prof = await getProfile(await signer.getAddress())
+        const prof = await getProfile(await signer.getAddress());
         if (prof) {
           setProfile({
             image: "https://ipfs.particle.network/" + prof.profile,
             name: prof.name,
             bio: prof.bio,
-            country: prof.country
-          })
-          setEdit(false)
-        } 
-      })()
+            country: prof.country,
+          });
+          setEdit(false);
+        }
+      })();
     }
-  }, [signer])
+  }, [signer]);
 
-  const loadImage = function(event) {
+  const loadImage = function (event) {
     setProfile({
       ...profile,
-      image: URL.createObjectURL(event.target.files[0])
-    })
+      image: URL.createObjectURL(event.target.files[0]),
+    });
   };
 
   const save = async () => {
     const file = document.getElementById("profileInput").files[0];
-    const cid = await uploadToIPFS(file)
-    await createProfile(ChainXP.abi, cid, profile.name, profile.bio, profile.country, signer)
-    setEdit(false)
-  }
+    const cid = await uploadToIPFS(file);
+    await createProfile(
+      ChainXP.abi,
+      cid,
+      profile.name,
+      profile.bio,
+      profile.country,
+      signer,
+    );
+    setEdit(false);
+  };
 
   return (
     <>
@@ -94,10 +104,21 @@ function Settings() {
                             Profile Image
                           </label>
                           <div className="col-md-8 col-lg-9">
-                            <img src={profile.image} id="profile" alt="Profile" />
+                            <img
+                              src={profile.image}
+                              id="profile"
+                              alt="Profile"
+                            />
                             {edit && (
                               <div className="pt-2">
-                                <input type="file" name="profileInput" id="profileInput" style={{display: "none"}} required onChange={loadImage}/>
+                                <input
+                                  type="file"
+                                  name="profileInput"
+                                  id="profileInput"
+                                  style={{ display: "none" }}
+                                  required
+                                  onChange={loadImage}
+                                />
                                 <label
                                   for="profileInput"
                                   className="btn btn-primary btn-sm"
@@ -128,8 +149,8 @@ function Settings() {
                               onChange={(e) => {
                                 setProfile({
                                   ...profile,
-                                  name: e.target.value
-                                })
+                                  name: e.target.value,
+                                });
                               }}
                             />
                           </div>
@@ -149,15 +170,14 @@ function Settings() {
                               className="form-control"
                               id="about"
                               style={{ height: "100px" }}
-                              onChange={e => {
+                              onChange={(e) => {
                                 setProfile({
                                   ...profile,
-                                  bio: e.target.value
-                                })
+                                  bio: e.target.value,
+                                });
                               }}
                               value={profile.bio}
-                            >
-                            </textarea>
+                            ></textarea>
                           </div>
                         </div>
 
@@ -176,21 +196,25 @@ function Settings() {
                               className="form-control"
                               id="Country"
                               value={profile.country}
-                              onChange={e => {
+                              onChange={(e) => {
                                 setProfile({
                                   ...profile,
-                                  country: e.target.value
-                                })
+                                  country: e.target.value,
+                                });
                               }}
                             />
                           </div>
                         </div>
                         {edit && (
                           <div className="text-center">
-                            <button type="submit" className="btn btn-primary" onClick={async (e) => {
-                              e.preventDefault()
-                              await save()
-                            }}>
+                            <button
+                              type="submit"
+                              className="btn btn-primary"
+                              onClick={async (e) => {
+                                e.preventDefault();
+                                await save();
+                              }}
+                            >
                               Save
                             </button>
                           </div>

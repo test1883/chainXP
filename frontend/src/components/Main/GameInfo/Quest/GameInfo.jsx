@@ -1,15 +1,9 @@
-import React from 'react'
-import xp from "../../../../assets/xp.jpg"
-
-
+import React from "react";
+import xp from "../../../../assets/xp.jpg";
 
 const GameInfo = () => {
-  
-
   return (
     <>
-     
-
       <div className="col-lg-12">
         <div className="row">
           <div className="col-xxl-6 col-md-6">
@@ -20,10 +14,10 @@ const GameInfo = () => {
                 <div className="d-flex align-items-center">
                   <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     {/* <i className="bi bi-currency-dollar"></i> */}
-                    <img id='balance' src={xp} alt='' />
+                    <img id="balance" src={xp} alt="" />
                   </div>
                   <div className="ps-3">
-                  <h6>10 XP</h6>
+                    <h6>10 XP</h6>
                   </div>
                 </div>
               </div>
@@ -37,21 +31,19 @@ const GameInfo = () => {
                 <div className="d-flex align-items-center">
                   <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     {/* <i className="bi bi-currency-dollar"></i> */}
-                    <img id='balance' src={xp} alt='' />
+                    <img id="balance" src={xp} alt="" />
                   </div>
                   <div className="ps-3">
-                  <h6>400 XP</h6>
+                    <h6>400 XP</h6>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-         
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default GameInfo
+export default GameInfo;

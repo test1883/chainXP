@@ -1,30 +1,30 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/address.jpg";
-import { Connector, useAccount, useConnect, useDisconnect } from 'wagmi'
+import { Connector, useAccount, useConnect, useDisconnect } from "wagmi";
 import { useEthersSigner } from "../../utils/ethers";
 import { getProfile } from "../../utils/functions";
 
 // import logo from "../assets/img/logo.png";
 
 const Navbar = () => {
-  const { connectors, connect } = useConnect()
-  const { disconnect } = useDisconnect()
-  const { address, isConnected } = useAccount()
+  const { connectors, connect } = useConnect();
+  const { disconnect } = useDisconnect();
+  const { address, isConnected } = useAccount();
 
-  const [profileImage, setProfile] = useState()
+  const [profileImage, setProfile] = useState();
 
-  const signer = useEthersSigner()
+  const signer = useEthersSigner();
 
   useEffect(() => {
     if (signer) {
       (async () => {
-        const prof = await getProfile(address)
-        console.log(prof)
-        setProfile("https://ipfs.particle.network/" + prof.profile)
-      })()
+        const prof = await getProfile(address);
+        console.log(prof);
+        setProfile("https://ipfs.particle.network/" + prof.profile);
+      })();
     }
-  }, [signer])
+  }, [signer]);
 
   return (
     <header
@@ -62,19 +62,35 @@ const Navbar = () => {
                   to="/profile"
                   data-bs-toggle="dropdown"
                 >
-                  <img src={profileImage} alt="Profile" className="rounded-circle" />
-                  <span className="d-none d-md-block ps-2">{address.slice(0, 6)}...{address.slice(-4)}</span>
+                  <img
+                    src={profileImage}
+                    alt="Profile"
+                    className="rounded-circle"
+                  />
+                  <span className="d-none d-md-block ps-2">
+                    {address.slice(0, 6)}...{address.slice(-4)}
+                  </span>
                 </Link>
               </li>
               <li className="nav-item pe-3">
-                <button type="button" className="btn btn-danger" onClick={() => {disconnect()}}>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => {
+                    disconnect();
+                  }}
+                >
                   Disconnect
                 </button>
               </li>
             </>
           ) : (
             <li className="nav-item pe-3">
-              <button type="button" className="btn btn-warning" onClick={() => connect({ connector: connectors[0] })}>
+              <button
+                type="button"
+                className="btn btn-warning"
+                onClick={() => connect({ connector: connectors[0] })}
+              >
                 Connect Wallet {address}
               </button>
             </li>

@@ -1,13 +1,35 @@
 import React, { useState } from "react";
+import { addQuest } from "../../utils/functions";
+import ChainXP from "../../abi/ChainXP.json"
+import { useEthersSigner } from "../../utils/ethers";
 
-const QuestModal = ({ onClose }) => {
+const QuestModal = ({ gameId, onClose }) => {
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await addQuest(ChainXP.abi, gameId, quest.title, quest.description, quest.enterFees, quest.requiredLevel,  quest.duration, quest.rewards, quest.nTries, signer)
+    setQuest({
+        title: null, 
+        description: null, 
+        enterFees: 0, 
+        requiredLevel: 1, 
+        duration: 20, 
+        rewards: 10, 
+        nTries: 1
+      })
     // Close the modal
-    onClose();
+    await onClose();
   };
+  const signer = useEthersSigner()
+  const [quest, setQuest] = useState({
+    title: null, 
+    description: null, 
+    enterFees: 0, 
+    requiredLevel: 1, 
+    duration: 20, 
+    rewards: 10, 
+    nTries: 1
+  })
 
   return (
     <div className="modal" style={modalStyle}>
@@ -16,180 +38,183 @@ const QuestModal = ({ onClose }) => {
           <div className="card info-card revenue-card">
             <div className="card-body">
               <h6 style={{ color: "gold" }}>Add a new quest</h6>
-              <br/>
+              <br />
               <div className="row mb-3">
-          <label
-            for="title"
-            className="col-md-4 col-lg-3 col-form-label"
-          >
-            Quest Title
-          </label>
-          <div className="col-md-8 col-lg-9">
-            <input
-              name="title"
-              type="text"
-              className="form-control"
-              id="title"
-            //   value={quest.title}
-            //   onChange={(e) => {
-            //     setTitle({
-            //       ...quest,
-            //       title: e.target.value
-            //     })
-            //   }}
-            />
-          </div>
-        </div>
+                <label for="title" className="col-md-4 col-lg-3 col-form-label">
+                  Quest Title
+                </label>
+                <div className="col-md-8 col-lg-9">
+                  <input
+                    name="title"
+                    type="text"
+                    className="form-control"
+                    id="title"
+                      value={quest.title}
+                      onChange={(e) => {
+                        setQuest({
+                          ...quest,
+                          title: e.target.value
+                        })
+                      }}
+                  />
+                </div>
+              </div>
 
-        <div className="row mb-3">
-          <label
-            for="description"
-            className="col-md-4 col-lg-3 col-form-label"
-          >
-            Description
-          </label>
-          <div className="col-md-8 col-lg-9">
-            <input
-              name="description"
-              className="form-control"
-              id="description"
-            //   onChange={e => {
-            //     setQuest({
-            //       ...quest,
-            //       description: e.target.value
-            //     })
-            //   }}
-            //   value={game.description}
-            />
-          </div>
-        </div>
+              <div className="row mb-3">
+                <label
+                  for="description"
+                  className="col-md-4 col-lg-3 col-form-label"
+                >
+                  Description
+                </label>
+                <div className="col-md-8 col-lg-9">
+                  <input
+                    name="description"
+                    className="form-control"
+                    id="description"
+                      onChange={e => {
+                        setQuest({
+                          ...quest,
+                          description: e.target.value
+                        })
+                      }}
+                      value={quest.description}
+                  />
+                </div>
+              </div>
 
-        <div className="row mb-3">
-          <label
-            for="fees"
-            className="col-md-4 col-lg-3 col-form-label"
-          >
-            Entry Fees
-          </label>
-          <div className="col-md-8 col-lg-9">
-            <input
-              name="fees"
-              type="number"
-              className="form-control"
-              id="fees"
-            //   value={quest.fees}
-            //   onChange={e => {
-            //     setQuest({
-            //       ...quest,
-            //       fees: e.target.value
-            //     })
-            //   }}
-            />
-          </div>
-        </div>
+              <div className="row mb-3">
+                <label for="fees" className="col-md-4 col-lg-3 col-form-label">
+                  Entry Fees(in XP)
+                </label>
+                <div className="col-md-8 col-lg-9">
+                  <input
+                    min={0}
+                    name="fees"
+                    type="number"
+                    className="form-control"
+                    id="fees"
+                      value={quest.enterFees}
+                      onChange={e => {
+                        setQuest({
+                          ...quest,
+                          enterFees: e.target.value
+                        })
+                      }}
+                  />
+                </div>
+              </div>
 
-        <div className="row mb-3">
-          <label
-            for="level"
-            className="col-md-4 col-lg-3 col-form-label"
-          >
-            Required Level
-          </label>
-          <div className="col-md-8 col-lg-9">
-            <input
-              name="level"
-              type="number"
-              className="form-control"
-              id="level"
-            //   value={quest.level}
-            //   onChange={e => {
-            //     setQuest({
-            //       ...quest,
-            //       level: e.target.value
-            //     })
-            //   }}
-            />
-          </div>
-        </div>
+              <div className="row mb-3">
+                <label for="level" className="col-md-4 col-lg-3 col-form-label">
+                  Required Level
+                </label>
+                <div className="col-md-8 col-lg-9">
+                  <input
+                    min={1}
+                    name="level"
+                    type="number"
+                    className="form-control"
+                    id="level"
+                      value={quest.requiredLevel}
+                      onChange={e => {
+                        setQuest({
+                          ...quest,
+                          requiredLevel: e.target.value
+                        })
+                      }}
+                  />
+                </div>
+              </div>
 
-        <div className="row mb-3">
-          <label
-            for="duration"
-            className="col-md-4 col-lg-3 col-form-label"
-          >
-            Quest Duration
-          </label>
-          <div className="col-md-8 col-lg-9">
-            <input
-              name="duration"
-              type="number"
-              className="form-control"
-              id="duration"
-            //   value={quest.duration}
-            //   onChange={e => {
-            //     setQuest({
-            //       ...quest,
-            //       duration: e.target.value
-            //     })
-            //   }}
-            />
-          </div>
-        </div>
+              <div className="row mb-3">
+                <label
+                  for="duration"
+                  className="col-md-4 col-lg-3 col-form-label"
+                >
+                  Quest Duration(in mins)
+                </label>
+                <div className="col-md-8 col-lg-9">
+                  <input
+                    min={20}
+                    name="duration"
+                    type="number"
+                    className="form-control"
+                    id="duration"
+                      value={quest.duration}
+                      onChange={e => {
+                        setQuest({
+                          ...quest,
+                          duration: e.target.value
+                        })
+                      }}
+                  />
+                </div>
+              </div>
 
-        <div className="row mb-3">
-          <label
-            for="rewards"
-            className="col-md-4 col-lg-3 col-form-label"
-          >
-            Quest Reward
-          </label>
-          <div className="col-md-8 col-lg-9">
-            <input
-              name="rewards"
-              type="number"
-              className="form-control"
-              id="rewards"
-            //   value={quest.rewards}
-            //   onChange={e => {
-            //     setQuest({
-            //       ...quest,
-            //       rewards: e.target.value
-            //     })
-            //   }}
-            />
-          </div>
-        </div>
-        
-        <div className="row mb-3">
-          <label
-            for="tries"
-            className="col-md-4 col-lg-3 col-form-label"
-          >
-            Quest Reward
-          </label>
-          <div className="col-md-8 col-lg-9">
-            <input
-              name="tries"
-              type="number"
-              className="form-control"
-              id="tries"
-            //   value={quest.nTries}
-            //   onChange={e => {
-            //     setQuest({
-            //       ...quest,
-            //       nTries: e.target.value
-            //     })
-            //   }}
-            />
-          </div>
-        </div>
-        
-        <button style={submitbut} type="submit" className="button-style" onClick={handleSubmit}>
-            Claim Rewards
-          </button>
-          <button style={cancelbut} type="button" className="button-style" onClick={onClose}>
-            Close
-          </button>
+              <div className="row mb-3">
+                <label
+                  for="rewards"
+                  className="col-md-4 col-lg-3 col-form-label"
+                >
+                  Quest Reward(in XP)
+                </label>
+                <div className="col-md-8 col-lg-9">
+                  <input
+                    min={10}
+                    name="rewards"
+                    type="number"
+                    className="form-control"
+                    id="rewards"
+                    value={quest.rewards}
+                    onChange={e => {
+                    setQuest({
+                        ...quest,
+                        rewards: e.target.value
+                    })
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="row mb-3">
+                <label for="tries" className="col-md-4 col-lg-3 col-form-label">
+                  Max Tries
+                </label>
+                <div className="col-md-8 col-lg-9">
+                  <input
+                    min={1}
+                    name="tries"
+                    type="number"
+                    className="form-control"
+                    id="tries"
+                    value={quest.nTries}
+                    onChange={e => {
+                    setQuest({
+                        ...quest,
+                        nTries: e.target.value
+                    })
+                    }}
+                  />
+                </div>
+              </div>
+
+              <button
+                style={submitbut}
+                type="submit"
+                className="button-style"
+                onClick={handleSubmit}
+              >
+                Add Quest
+              </button>
+              <button
+                style={cancelbut}
+                type="button"
+                className="button-style"
+                onClick={onClose}
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>

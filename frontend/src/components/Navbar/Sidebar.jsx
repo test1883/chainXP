@@ -96,7 +96,10 @@ const Sidebar = () => {
                     >
                       {card.reward} xp
                     </span>
-                    <button onClick={handleGamemodalClick} className="btn btn-warning followbtn">
+                    <button
+                      onClick={handleGamemodalClick}
+                      className="btn btn-warning followbtn"
+                    >
                       Enter
                     </button>
                   </div>

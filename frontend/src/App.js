@@ -17,15 +17,14 @@ import "./assets/vendor/bootstrap-icons/bootstrap-icons.css";
 import "./assets/vendor/bootstrap/css/bootstrap.min.css";
 import "./assets/css/style.css";
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { WagmiProvider } from 'wagmi'
-import { config } from './config/config.js'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { WagmiProvider } from "wagmi";
+import { config } from "./config/config.js";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <div className="">

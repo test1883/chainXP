@@ -1,13 +1,9 @@
-import React from 'react'
-import xp from "../../../assets/xp.jpg"
-import ll from "../../../assets/ll.png"
-import Sidebar from '../../Navbar/Sidebar'
-
-
+import React from "react";
+import xp from "../../../assets/xp.jpg";
+import ll from "../../../assets/ll.png";
+import Sidebar from "../../Navbar/Sidebar";
 
 const Wallet = () => {
-  
-
   return (
     <>
       <div className="pagetitle">
@@ -33,10 +29,10 @@ const Wallet = () => {
                 <div className="d-flex align-items-center">
                   <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     {/* <i className="bi bi-currency-dollar"></i> */}
-                    <img id='balance' src={xp} alt='' />
+                    <img id="balance" src={xp} alt="" />
                   </div>
                   <div className="ps-3">
-                  <h6>0 XP</h6>
+                    <h6>0 XP</h6>
                   </div>
                 </div>
               </div>
@@ -50,22 +46,20 @@ const Wallet = () => {
                 <div className="d-flex align-items-center">
                   <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     {/* <i className="bi bi-currency-dollar"></i> */}
-                    <img id='balance' src={ll} alt='' />
+                    <img id="balance" src={ll} alt="" />
                   </div>
                   <div className="ps-3">
-                  <h6>0 LL</h6>
+                    <h6>0 LL</h6>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-         
         </div>
       </div>
       <Sidebar />
     </>
-  )
-}
+  );
+};
 
-export default Wallet
+export default Wallet;

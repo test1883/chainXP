@@ -71,7 +71,7 @@ const QuestForm = ({ quests, handleQuestChange, handleAddQuest }) => {
                 handleQuestChange(
                   index,
                   "levelReward",
-                  parseFloat(e.target.value)
+                  parseFloat(e.target.value),
                 )
               }
               style={styles.input}
@@ -130,7 +130,7 @@ const GameListComponent = ({ games, handleEditGame, handleSaveEditedGame }) => {
               handleEditGame({
                 ...editingGame,
                 quests: editingGame.quests.map((quest, i) =>
-                  i === index ? { ...quest, [field]: value } : quest
+                  i === index ? { ...quest, [field]: value } : quest,
                 ),
               })
             }
@@ -204,15 +204,15 @@ const Gamelist = () => {
 
   const handleEditGame = (game) => {
     setGames((prevGames) =>
-      prevGames.map((g) => (g.gameName === game.gameName ? game : g))
+      prevGames.map((g) => (g.gameName === game.gameName ? game : g)),
     );
   };
 
   const handleSaveEditedGame = (editedGame) => {
     setGames((prevGames) =>
       prevGames.map((game) =>
-        game.gameName === editedGame.gameName ? editedGame : game
-      )
+        game.gameName === editedGame.gameName ? editedGame : game,
+      ),
     );
   };
 
