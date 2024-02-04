@@ -17,7 +17,7 @@ const GameInfo = ({level, earnings}) => {
                     <img id="balance" src={xp} alt="" />
                   </div>
                   <div className="ps-3">
-                    <h6>{level*10} XP</h6>
+                    <h6>{(level-1)*10} XP</h6>
                   </div>
                 </div>
               </div>

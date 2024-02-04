@@ -32,10 +32,16 @@ const Games = () => {
         const gameId = parseInt(searchQuery.split("=")[1])
         const g = games.filter(game => game.game_id === gameId)[0]
         const level = await playerLevel(ChainXP.abi, gameId, signer)
-        // const pEarnings = await playerEarnings(ChainXP.abi, gameId, signer)
-        setGame(g)
-        setLevel(parseInt(level)+1)
-        // setEarnings(parseInt(pEarnings))
+        const pEarnings = await playerEarnings(ChainXP.abi, gameId, signer)
+        if (g) {
+          setGame(g)
+        }
+        if (level) {
+          setLevel(parseInt(level)+1)
+        }
+        if (pEarnings) {
+          setEarnings(parseInt(pEarnings))
+        }
         console.log(g)
       })()
     }
@@ -65,7 +71,7 @@ const Games = () => {
                   <div className="card-body">
                     <div className="d-flex align-items-center">
                       <div className="">
-                        {game.logo && (
+                        {game && (game.logo && (
                             <img
                               src={"https://ipfs.particle.network/" + game.logo}
                               style={{
@@ -75,7 +81,7 @@ const Games = () => {
                               }}
                               alt=""
                             />
-                        )}
+                        ))}
                       </div>
                       <div className="ps-3">
                         <h6 style={{ color: "gold" }}>
@@ -95,12 +101,14 @@ const Games = () => {
                       </div>
                     </div>
                   </div>
-                  <GameInfo level={pLevel} earnings={0}/>
+                  <GameInfo level={pLevel} earnings={earnings}/>
                 </div>
               </div>
             </div>
           </div>
-          <Quest />
+          <Quest game={{
+            gameId:  parseInt(searchQuery.split("=")[1])
+          }}/>
 
           {/* End games */}
         </div>

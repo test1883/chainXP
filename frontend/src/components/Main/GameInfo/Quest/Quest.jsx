@@ -20,13 +20,15 @@ const Quest = ({user, game}) => {
             [el.game_id]: "https://ipfs.particle.network/" + el.logo,
           }
         }, {})
+        console.log(formattedGames)
         setGames(formattedGames)
         if (game) {
           const quests = await gameQuests(ChainXP.abi, game.gameId, signer)
           const temp = []
+          console.log(quests)
           for (let i = 0; i < quests.quests.length; i++) {
             for (let j = 0; j < quests.questDetails.length; j++) {
-              if (quests.questDetails[j][0] === quests.quests[i].quest_id && quests.questDetails[j][1] === quests.quests[i].game_id) {
+              if (Number(quests.questDetails[j][0]) === Number(quests.quests[i].quest_id) && Number(quests.questDetails[j][1]) === Number(quests.quests[i].game_id)) {
                 temp.push(
                   {
                     questId: Number(quests.questDetails[j][0]),
@@ -108,7 +110,7 @@ const Quest = ({user, game}) => {
                   <div className="news">
                     <div className="post-item clearfix">
                       <img src={games[quest.gameId]} alt="" />
-                      <h4>
+                      <h4 style={{color: "whitesmoke"}}>
                         {quest.title}
                       </h4>
                       <p>
@@ -121,7 +123,7 @@ const Quest = ({user, game}) => {
                         </b>
                         <span style={{ color: "whitesmoke" }}>
                           {" "}
-                          Level Required {quest.requiredLevel}
+                          Level {quest.requiredLevel+1}
                         </span>
                       </p>
                       <div className="d-flex justify-content-between align-items-center p-2">
@@ -132,7 +134,7 @@ const Quest = ({user, game}) => {
                             fontSize: "medium",
                           }}
                         >
-                          +{quest.reward} xp
+                          +{quest.rewards} xp
                         </span>
                         <button
                           onClick={handleGamemodalClick}

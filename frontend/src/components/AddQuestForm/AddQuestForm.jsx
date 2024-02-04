@@ -70,9 +70,9 @@ const AddQuestForm = () => {
             Game Logo
           </label>
           <div className="col-md-8 col-lg-9">
-            {game.logo && (
+            {game && (game.logo && (
               <img src={game.logo} id="game" alt="Game" />
-            )}
+            ))}
             {edit && (
               <div className="pt-2">
                 <input
