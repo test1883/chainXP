@@ -30,8 +30,14 @@ export const getGame = async (address) => {
     return game
 }
 
+export const getGames = async () => {
+    const response = await fetch(process.env.REACT_APP_GATEWAY + "/games")
+    const games = await response.json()
+    return games
+}
+
 export const playerLevel = async (ChainXP_abi, gameId, signer) => {
-    const contract = new ethers.Contract("0x610C63e6d6f7bEd8589fe06De840Db46d347A999", ChainXP_abi, signer)
+    const contract = new ethers.Contract("0x7a511e233969bBB397072511e980caB653a5bd3D", ChainXP_abi, signer)
     const level = await contract.playerLevel(gameId)
     return level
 }
@@ -39,13 +45,13 @@ export const playerLevel = async (ChainXP_abi, gameId, signer) => {
 export const gameQuests = async (ChainXP_abi, gameId, signer) => {
     const response = await fetch(process.env.REACT_APP_GATEWAY + "/quests/" + gameId)
     const quests = await response.json()
-    const contract = new ethers.Contract("0x610C63e6d6f7bEd8589fe06De840Db46d347A999", ChainXP_abi, signer)
+    const contract = new ethers.Contract("0x7a511e233969bBB397072511e980caB653a5bd3D", ChainXP_abi, signer)
     const questDetails = await contract.gameQuests(gameId)
     return {quests, questDetails}
 }
 
 export const ongoingQuests =async (ChainXP_abi, address, signer) => {
-    const contract = new ethers.Contract("0x610C63e6d6f7bEd8589fe06De840Db46d347A999", ChainXP_abi, signer)
+    const contract = new ethers.Contract("0x7a511e233969bBB397072511e980caB653a5bd3D", ChainXP_abi, signer)
     const questDetails = await contract.ongoingQuests()
     const ongoing = await questDetails[0].map(quest => {
         return {
@@ -62,25 +68,25 @@ export const ongoingQuests =async (ChainXP_abi, address, signer) => {
 }
 
 export const getXPBalance = async (XPToken_abi, signer) => {
-    const contract = new ethers.Contract("0x6494f34662C3c2AaFeE6021B407DF3F4d69e5545", XPToken_abi, signer)
-    const balance = await contract.getBalance()
-    return balance
+    const contract = new ethers.Contract("0x87eC8Fe535a62cEbf19FFEbe33C2D2653DD07BD8", XPToken_abi, signer)
+    const balance = await contract.balanceOf(await signer.getAddress())
+    return ethers.utils.formatUnits(balance, 1);
 }
 
 export const joinQuest = async (ChainXP_abi, userId, gameId, questId, signer) => {
-    const contract = new ethers.Contract("0x610C63e6d6f7bEd8589fe06De840Db46d347A999", ChainXP_abi, signer)
+    const contract = new ethers.Contract("0x7a511e233969bBB397072511e980caB653a5bd3D", ChainXP_abi, signer)
     await contract.joinQuest(userId, gameId, questId)
 }
 
 export const rejoinQuest = async (ChainXP_abi, userId, gameId, questId, signer) => {
-    const contract = new ethers.Contract("0x610C63e6d6f7bEd8589fe06De840Db46d347A999", ChainXP_abi, signer)
+    const contract = new ethers.Contract("0x7a511e233969bBB397072511e980caB653a5bd3D", ChainXP_abi, signer)
     await contract.rejoinQuest(userId, gameId, questId)
 }
 
 export const createProfile = async (ChainXP_abi, profile, name, bio, country, signer) => {
     const iface = new ethers.utils.Interface(ChainXP_abi)
     await durin_call(signer, {
-        to: '0x610C63e6d6f7bEd8589fe06De840Db46d347A999',
+        to: '0x7a511e233969bBB397072511e980caB653a5bd3D',
         data: iface.encodeFunctionData('createProfile', [
           profile,
           name,
@@ -93,7 +99,7 @@ export const createProfile = async (ChainXP_abi, profile, name, bio, country, si
 export const createGame = async (ChainXP_abi, name, contractAddress, description, install, logo, signer) => {
     const iface = new ethers.utils.Interface(ChainXP_abi)
     await durin_call(signer, {
-        to: '0x610C63e6d6f7bEd8589fe06De840Db46d347A999',
+        to: '0x7a511e233969bBB397072511e980caB653a5bd3D',
         data: iface.encodeFunctionData('createGame', [
           name,
           contractAddress,
@@ -107,7 +113,7 @@ export const createGame = async (ChainXP_abi, name, contractAddress, description
 export const addQuest = async (ChainXP_abi, gameId, title, description, enterFees, requiredLevel, duration, rewards, nTries, signer) => {
     const iface = new ethers.utils.Interface(ChainXP_abi)
     await durin_call(signer, {
-        to: '0x610C63e6d6f7bEd8589fe06De840Db46d347A999',
+        to: '0x7a511e233969bBB397072511e980caB653a5bd3D',
         data: iface.encodeFunctionData('addQuest', [
           gameId,
           title,

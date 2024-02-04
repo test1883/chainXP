@@ -225,10 +225,6 @@ function Settings() {
                     <div className="tab-pane fade pt-3" id="game-settings">
                       <AddQuestForm />
                     </div>
-
-                    <div className="tab-pane fade pt-3" id="game-list">
-                      <Gamelist />
-                    </div>
                   </div>
                 </div>
               </div>

@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import xp from "../../assets/xp.jpg";
 import ll from "../../assets/ll.png";
 import useimage from "../../assets/address.jpg";
 import Modal from "../Main/Games/Modal";
+import { getXPBalance } from "../../utils/functions";
+import XPToken from "../../abi/XPToken.json"
+import { useEthersSigner } from "../../utils/ethers";
+import { ethers } from 'ethers'
+
 
 const Ongoinggm = [
   { id: 1, title: "ongoing quest title", reward: "30", level: "1" },
@@ -15,6 +20,9 @@ const Ongoinggm = [
 
 const Sidebar = () => {
   const [isGamemodalOpen, setIsGamemodalOpen] = useState(false);
+
+  const [balance, setBalance] = useState(0)
+  const [xpBalance, setXpBalance] = useState(0)
 
   const handleGamemodalClick = () => {
     setIsGamemodalOpen(true);
@@ -28,6 +36,16 @@ const Sidebar = () => {
     // claim
     handleCloseGamemodal();
   };
+  const signer = useEthersSigner()
+  useEffect(() => {
+    if (signer) {
+      (async ()=> {
+        const res = await getXPBalance(XPToken.abi, signer)
+        setXpBalance(res)
+        setBalance(ethers.utils.formatEther(await signer.getBalance()))
+      })()
+    }
+  }, [signer])
 
   return (
     <>
@@ -42,7 +60,7 @@ const Sidebar = () => {
                 <img id="balance" src={xp} alt="" />
               </div>
               <div className="ps-3">
-                <h6>0 XP</h6>
+                <h6>{xpBalance} XP</h6>
               </div>
             </div>
             <hr />
@@ -52,7 +70,7 @@ const Sidebar = () => {
                 <img id="balance" src={ll} alt="" />
               </div>
               <div className="ps-3">
-                <h6>0 LL</h6>
+                <h6>{balance} LL</h6>
               </div>
             </div>
           </div>
@@ -62,7 +80,13 @@ const Sidebar = () => {
         {/* News & Updates Traffic */}
         <div className="card">
           <div className="card-body pb-0">
-            <h5 className="card-title">Ongoing Games</h5>
+            <div className="d-flex justify-content-between align-items-center">
+              <h5 className="card-title">Your Quests</h5>
+              
+              <Link to="/">
+                <button className="btn btn-warning followbtn">View All</button>
+              </Link>
+            </div>
             <div className="news">
               {Ongoinggm.map((card) => (
                 <div
@@ -105,11 +129,6 @@ const Sidebar = () => {
                   </div>
                 </div>
               ))}
-            </div>
-            <div className="text-center">
-              <Link to="/quests">
-                <button className="btn btn-warning followbtn">View All</button>
-              </Link>
             </div>
             {/* End sidebar recent posts */}
           </div>

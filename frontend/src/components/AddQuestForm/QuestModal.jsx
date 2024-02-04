@@ -7,7 +7,8 @@ const QuestModal = ({ gameId, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addQuest(ChainXP.abi, gameId, quest.title, quest.description, quest.enterFees, quest.requiredLevel,  quest.duration, quest.rewards, quest.nTries, signer)
+    console.log(gameId)
+    await addQuest(ChainXP.abi, gameId, quest.title, quest.description, quest.enterFees, quest.requiredLevel-1,  quest.duration*60, quest.rewards, quest.nTries, signer)
     setQuest({
         title: null, 
         description: null, 
@@ -246,7 +247,7 @@ const modalContentStyle = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "40%",
+  width: "60%",
   background: "linear-gradient(to left, #c33764, #1d2671)",
   borderRadius: "8px",
   padding: "20px",

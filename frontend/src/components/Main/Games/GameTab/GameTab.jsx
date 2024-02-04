@@ -1,23 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../../../assets/address.jpg";
-
-const gameData = [
-  { id: 1, name: "Game 1: The gamified" },
-  { id: 2, name: "Game 2: The second game" },
-  { id: 3, name: "Game 3: The third game" },
-  { id: 4, name: "Game 4: The third game" },
-  { id: 5, name: "Game 5: The third game" },
-  { id: 6, name: "Game 6: The third game" },
-];
+import { getGames } from "../../../../utils/functions";
 
 const GameTab = () => {
+  const [games, setGames] = useState([])
+  const [search, setSearch] = useState(null)
+  useEffect(() => {
+    (async () => {
+      const res = await getGames()
+      setGames(res)
+    })()
+  }, [])
   return (
     <aside id="sidebar" className={`sidebar ${"ml-[300px]"}`}>
       <ul className="sidebar-nav" id="sidebar-nav">
         <div className="search-bar">
           <div className="search-form d-flex align-items-center justify-content-between">
             <input
+              value={search}
+              onChange={e => setSearch(e.target.value)}
               style={{ padding: "10px", borderRadius: "20px" }}
               type="text"
               name="query"
@@ -30,7 +31,7 @@ const GameTab = () => {
                 height: "40px",
                 borderRadius: "50%",
               }}
-              type="submit"
+              type="button"
               title="Search"
               className="btn btn-warning"
             >
@@ -39,23 +40,28 @@ const GameTab = () => {
           </div>
         </div>
         <li className="nav-heading">Game</li>
-        {gameData.map((game) => (
-          <li key={game.id} className="nav-item">
-            <Link className="nav-link gap-1 collapsed" to="/games">
-              <img
-                src={logo}
-                alt=""
-                className=""
-                style={{
-                  height: "50px",
-                  width: "50px",
-                  borderRadius: "50%",
-                }}
-              />
-              <span>{game.name}</span>
-            </Link>
-          </li>
-        ))}
+        {games.map((game, key) => {
+          if (!search || (game.name.toUpperCase().indexOf(search) > -1)) {
+            return (
+            <li key={key} className="nav-item">
+              <Link className="nav-link gap-1 collapsed" to="/games">
+                <img
+                  src={"https://ipfs.particle.network/" + game.logo}
+                  alt=""
+                  className=""
+                  style={{
+                    height: "50px",
+                    width: "50px",
+                    borderRadius: "50%",
+                  }}
+                />
+                <span>{game.name}</span>
+              </Link>
+            </li>
+          )
+
+          }
+        })}
       </ul>
     </aside>
   );

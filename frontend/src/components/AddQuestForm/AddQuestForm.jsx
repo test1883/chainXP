@@ -7,13 +7,15 @@ import QuestModal from "./QuestModal";
 
 const AddQuestForm = () => {
   const signer = useEthersSigner();
+  const [questModal, setQuestModal] = useState(false)
   const [game, setGame] = useState({
     name: null,
     contractAddress: null,
     description: null,
     install: null,
-    logo: null,
+    logo: null
   });
+  const [gameId, setGameId] = useState(null)
   const [edit, setEdit] = useState(true);
 
   useEffect(() => {
@@ -28,11 +30,12 @@ const AddQuestForm = () => {
             description: res.description,
             install: res.install,
           });
+          setGameId(res.game_id)
           setEdit(false);
         }
       })();
     }
-  }, [signer]);
+  }, [signer, edit]);
 
   const loadImage = function (event) {
     setGame({
@@ -177,7 +180,7 @@ const AddQuestForm = () => {
             />
           </div>
         </div>
-        {edit && (
+        {edit ? (
           <div className="text-center">
             <button
               type="submit"
@@ -190,9 +193,24 @@ const AddQuestForm = () => {
               Save
             </button>
           </div>
+        ) : (
+          <div className="text-center">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={(e) => {
+                e.preventDefault();
+                setQuestModal(true)
+              }}
+            >
+              Add a new Quest
+            </button>
+          </div>
         )}
       </form>
-      <QuestModal />
+      {questModal && (
+        <QuestModal gameId={gameId} onClose={() => setQuestModal(false)}/>
+      )}
     </div>
   );
 };

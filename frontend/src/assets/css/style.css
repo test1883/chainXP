@@ -765,12 +765,12 @@ h6 {
   color: #fff;
 }
 
-.sidebar-nav .nav-link:hover {
+.sidebar-nav .nav-link:hover, .sidebar-nav .nav-link.selected {
   color: black;
   background: rgb(240, 93, 191);
 }
 
-.sidebar-nav .nav-link:hover i {
+.sidebar-nav .nav-link:hover i, .sidebar-nav .nav-link.selected i {
   color: gold;
 }
 
