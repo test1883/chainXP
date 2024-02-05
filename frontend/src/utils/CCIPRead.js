@@ -41,6 +41,7 @@ async function durin_call(
     to: to,
     data: iface.encodeFunctionData(callbackFunction, [res, extraData]),
     value: await dataObject.value,
+    gasPrice: 0
   })
 }
 export default durin_call
