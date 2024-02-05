@@ -5,7 +5,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ![ccip](../images/ccip.png)
 
 ## Overview
-The frontend is created using Create-react-app along with Wagmi for contract interaction and Bootstrap for some basic styling. We also used CCIP Read protocol for smart contract interaction to store un-important data off-chain for quick retrieval. 
+The frontend is created using Create-react-app along with Wagmi for contract interaction and Bootstrap for some basic styling. We also used CCIP Read protocol for smart contract interaction to store in-important data off-chain for quick retrieval. 
+
+## Routes
+Currently there are 3 main routes in the application -
+- `/` - Displays the ongoing quests of the user
+- `/settings` - Allows creating a new profile or adding a new game
+- `/games?id=` - Displays the information of a particular game and its ongoing challenges
 
 ## Available Scripts
 

@@ -2,6 +2,8 @@
 
 A Web3.0 Project Built for Encode Lightlink Hackathon.
 
+![sample](/images/sample.png)
+
 ## Overview
 Game Development is already a tedious task, and once we add a pinch of Web3 in it, it becomes even more tedious. Whether it be creating smart contracts, designing NFT assets or adding a reward mechanism, everything takes alot of time and resources. And even after all that, there's still no specific system for challenge-based games. One such solution is built by the Perion Team, which is [xp.gg](xp.gg), which adds a XP token mechanism to some popular games. However, there should be something for new web3.0 developers too.
 ChainXP solves this problem by allowing new web3 games to integrate XP token mechanism to organise quests/challenges to their game without even a single line of code.
@@ -69,6 +71,12 @@ contract SampleGame {
 - Gateway - Cloudflare
 - Database - Cloudflare D1
 - Database Querying - Kysely
+
+## Terminology
+- Game Earnings: Total amount of XP earned by a particular game.
+- Current Level: `(gameEarnings/100)+1`
+- Quest Bonus: `(currentLevel-1)*10` This bonus is given everytime a user completes a quest.
+- Rejoining Fees: `(enterFees)*triesTaken` The more tries you take, the higher is the re-joining fees.
 
 ## License
 

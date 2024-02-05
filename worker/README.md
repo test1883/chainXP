@@ -1,18 +1,14 @@
-# CCIP Read Gateway
+# ChainXP - CCIP Read Gateway
 
-[Cloudflare Worker](https://developers.cloudflare.com/workers/) is used as the [CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) gateway. [Cloudflare D1](https://developers.cloudflare.com/d1/) is used to store name data.
-
-These choices allow for a scalable namespace with low cost (store up to 1M names for free), low latency, and high availability.
-
-> [!NOTE]  
-> Cloudflare D1 is in open alpha, so there is a possibility of breaking changes. Please [open an issue](https://github.com/gskril/ens-offchain-registrar/issues) if you encounter any issues.
+[Cloudflare Worker](https://developers.cloudflare.com/workers/) is used as the [CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) gateway. [Cloudflare D1](https://developers.cloudflare.com/d1/) is used to store data.
 
 ## API Routes
-
-- `/names` - GET - Returns all names from the database
-- `/get/{name}` - GET - Returns the records for a given name
+- `/get/:owner` - GET - Returns the profile details of a particular address
+- `/games` - GET - Returns all the games
+- `/game/:owner` - GET - Returns the game associated with a particular address
+- `/quests/:gameId` - GET - Returns the quests under a game
 - `/lookup/{sender}/{data}.json` - GET - CCIP Read lookup
-- `/set` - POST - Adds a name to the database
+- `/ongoing` - POST - Returns the ongoing challenges of a user
 
 ## Run Locally
 
