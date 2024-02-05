@@ -9,7 +9,7 @@ ChainXP solves this problem by allowing new web3 games to integrate XP token mec
 ## Usage
 
 - **For Players:**
-1. Go to [ChainXP](www.chainxp.com) and connect your wallet.
+1. Go to [ChainXP](https://chain-xp.vercel.app/settings) and connect your wallet.
 2. Click on the settings button and fill in your details and choose avatar.
 3. Go to the home page and choose a game.
 4. Check for any ongoing challenges and join in as per your eligibility.
@@ -18,23 +18,54 @@ ChainXP solves this problem by allowing new web3 games to integrate XP token mec
 7. If you complete the challenge within the time duration, you get XP tokens as the reward.
 
 - **For Developers:**
-1. Go to [ChainXP](www.chainxp.com) and connect your wallet.
+1. Go to [ChainXP](https://chain-xp.vercel.app/settings) and connect your wallet.
 2. Click on the settings button and fill in your details and choose avatar.
 3. Go to the Dev Mode tab and register your ChainXP Compatible(see below) game contract.
 4. Click on the add quest button to create a new quest.
 5. Call the smart contract methods from the frontend whenever a player completes/fails in a quest.
 
 ### ChainXP Compatible Contract
+Your Game contract must be compatible with ChainXP. To do so, you just need to paste some extra lines of code! Here's a sample contract -
+```javascript
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.24;
+
+import "./IChainXP.sol";
+
+contract SampleGame {
+    address immutable owner;
+    uint256 private gameId;
+    IChainXP chainXP; 
+    constructor() {
+        owner=msg.sender;
+    }
+    // ...other game functions
+    function addChainXP(IChainXP xp) external {
+        require(msg.sender == owner);
+        chainXP = xp;    
+    }
+    function setGameId(uint256 _gameId) external {
+        require(msg.sender == owner);
+        gameId = _gameId;
+    }
+    function questComplete(uint256 questId) external {
+        chainXP.questComplete(msg.sender, gameId, questId);
+    }
+    function questFailed(uint256 questId) external {
+        chainXP.questFailed(msg.sender, gameId, questId);
+    }
+}
+```
 
 ## How it's made
-### [Frontend](/frontend/README.md)
+### [Frontend(Learn More)](/frontend/README.md)
 - Framework - ReactJS
 - Smart Contract Interaction - Wagmi, Ethers.js, CCIP Read Protocol
 - Styling - Bootstrap
-### [Smart Contracts](/contracts/README.md) -
+### [Smart Contracts(Learn More)](/contracts/README.md) -
 - Environment - Hardhat
 - Deployment - Pegasus (Lightlink Enterprise Mode)
-### [Backend](/worker/README.md) -
+### [Backend(Learn More)](/worker/README.md) -
 - Gateway - Cloudflare
 - Database - Cloudflare D1
 - Database Querying - Kysely

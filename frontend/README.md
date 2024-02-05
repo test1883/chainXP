@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# ChainXP - Frontend
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+![ccip](../images/ccip.png)
+
+## Overview
+The frontend is created using Create-react-app along with Wagmi for contract interaction and Bootstrap for some basic styling. We also used CCIP Read protocol for smart contract interaction to store un-important data off-chain for quick retrieval. 
 
 ## Available Scripts
 
